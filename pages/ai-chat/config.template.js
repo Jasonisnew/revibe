@@ -1,7 +1,9 @@
-// AI Chat Configuration
+// AI Chat Configuration Template
+// Copy this file to config.js and add your actual API key
+
 const AI_CHAT_CONFIG = {
     // OpenAI API Configuration
-    OPENAI_API_KEY: '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', // Replace with your actual OpenAI API key
+    OPENAI_API_KEY: 'your-api-key-here', // Replace with your actual OpenAI API key
     OPENAI_API_URL: 'https://api.openai.com/v1/chat/completions',
     
     // Model Configuration

@@ -9,40 +9,6 @@ const chatMessages = document.getElementById('chat-messages');
 let isTyping = false;
 let conversationHistory = [];
 
-// Enhanced AI responses with context awareness
-const aiResponses = {
-    greeting: [
-        "Hello! I'm here to help with your fitness and rehabilitation journey. How are you feeling today?",
-        "Welcome back! I'm ready to assist you with your recovery. What would you like to work on?",
-        "Hi there! I'm your AI fitness assistant. How can I help you today?"
-    ],
-    exercise: [
-        "Great choice! For that exercise, I'd recommend starting with 3 sets of 10 reps. Remember to maintain proper form.",
-        "That's an excellent exercise for your recovery. Let's focus on controlled movements and proper breathing.",
-        "Perfect! This exercise will help strengthen those muscles. Start slowly and gradually increase intensity."
-    ],
-    pain: [
-        "I understand you're experiencing discomfort. It's important to listen to your body. Consider taking a rest day or doing gentle stretching.",
-        "Pain is your body's way of communicating. If it persists, please consult with your physical therapist.",
-        "Let's modify the exercise to avoid aggravating the area. We can try a gentler variation."
-    ],
-    progress: [
-        "That's fantastic progress! You're showing real dedication to your recovery. Keep up the great work!",
-        "I'm impressed with your consistency! Your hard work is paying off. What's your next goal?",
-        "Excellent! You're making steady improvements. Remember, recovery is a journey, not a race."
-    ],
-    motivation: [
-        "You've got this! Every small step forward is progress. I believe in your ability to reach your goals.",
-        "Remember why you started this journey. You're stronger than you think, and every day you're getting better.",
-        "Stay focused on your goals! You're doing amazing work, and I'm here to support you every step of the way."
-    ],
-    general: [
-        "I'm here to support your fitness journey. What specific area would you like to focus on today?",
-        "That's a great question! Let me help you understand how to approach this safely and effectively.",
-        "I appreciate you sharing that with me. Let's work together to find the best approach for your situation."
-    ]
-};
-
 // Send message function
 async function sendMessage() {
     const message = messageInput.value.trim();
@@ -61,40 +27,129 @@ async function sendMessage() {
     // Show typing indicator
     showTypingIndicator();
     
-    // Generate contextual AI response
-    setTimeout(() => {
+    try {
+        // Get AI response from ChatGPT API with minimum typing delay
+        const startTime = Date.now();
+        const aiResponse = await getChatGPTResponse(message);
+        const elapsedTime = Date.now() - startTime;
+        
+        // Ensure minimum typing delay for better UX
+        const minDelay = AI_CHAT_CONFIG.TYPING_DELAY;
+        if (elapsedTime < minDelay) {
+            await new Promise(resolve => setTimeout(resolve, minDelay - elapsedTime));
+        }
+        
         hideTypingIndicator();
-        const aiResponse = generateContextualResponse(message);
         addMessage(aiResponse, 'ai');
         conversationHistory.push({ role: 'ai', content: aiResponse });
-    }, 1500 + Math.random() * 1000); // Random delay between 1.5-2.5 seconds
-}
-
-// Generate contextual AI response
-function generateContextualResponse(userMessage) {
-    const message = userMessage.toLowerCase();
-    
-    // Check for specific keywords to provide contextual responses
-    if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
-        return getRandomResponse('greeting');
-    } else if (message.includes('exercise') || message.includes('workout') || message.includes('training')) {
-        return getRandomResponse('exercise');
-    } else if (message.includes('pain') || message.includes('hurt') || message.includes('sore')) {
-        return getRandomResponse('pain');
-    } else if (message.includes('progress') || message.includes('improve') || message.includes('better')) {
-        return getRandomResponse('progress');
-    } else if (message.includes('motivation') || message.includes('tired') || message.includes('hard')) {
-        return getRandomResponse('motivation');
-    } else {
-        return getRandomResponse('general');
+    } catch (error) {
+        hideTypingIndicator();
+        console.error('Error getting AI response:', error);
+        const errorMessage = getErrorMessage(error);
+        addMessage(errorMessage, 'ai');
+        
+        // If API key is missing, show helpful setup instructions
+        if (error.message === 'API_KEY_MISSING') {
+            setTimeout(() => {
+                addMessage('To use the AI chat feature, please update your API key in the config.js file. You can get an API key from https://platform.openai.com/api-keys', 'ai');
+            }, 2000);
+        }
     }
 }
 
-// Get random response from category
-function getRandomResponse(category) {
-    const responses = aiResponses[category];
-    const randomIndex = Math.floor(Math.random() * responses.length);
-    return responses[randomIndex];
+// Get ChatGPT API response
+async function getChatGPTResponse(userMessage) {
+    // Check if API key is configured
+    if (!AI_CHAT_CONFIG.OPENAI_API_KEY || AI_CHAT_CONFIG.OPENAI_API_KEY === 'your-api-key-here') {
+        throw new Error('API_KEY_MISSING');
+    }
+
+    // Prepare conversation history for API
+    const messages = [
+        { role: 'system', content: AI_CHAT_CONFIG.SYSTEM_PROMPT }
+    ];
+
+    // Add recent conversation history (limit to prevent token overflow)
+    const recentHistory = conversationHistory.slice(-AI_CHAT_CONFIG.MAX_CONVERSATION_LENGTH);
+    messages.push(...recentHistory);
+
+    // Add current user message
+    messages.push({ role: 'user', content: userMessage });
+
+    try {
+        // Create AbortController for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+        
+        const response = await fetch(AI_CHAT_CONFIG.OPENAI_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${AI_CHAT_CONFIG.OPENAI_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: AI_CHAT_CONFIG.MODEL,
+                messages: messages,
+                max_tokens: AI_CHAT_CONFIG.MAX_TOKENS,
+                temperature: AI_CHAT_CONFIG.TEMPERATURE,
+                top_p: AI_CHAT_CONFIG.TOP_P,
+                frequency_penalty: AI_CHAT_CONFIG.FREQUENCY_PENALTY,
+                presence_penalty: AI_CHAT_CONFIG.PRESENCE_PENALTY
+            }),
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            
+            if (response.status === 401) {
+                throw new Error('API_KEY_INVALID');
+            } else if (response.status === 429) {
+                throw new Error('RATE_LIMIT');
+            } else if (response.status >= 500) {
+                throw new Error('API_ERROR');
+            } else {
+                throw new Error('API_ERROR');
+            }
+        }
+
+        const data = await response.json();
+        
+        if (data.choices && data.choices[0] && data.choices[0].message) {
+            return data.choices[0].message.content.trim();
+        } else {
+            throw new Error('API_ERROR');
+        }
+
+    } catch (error) {
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            throw new Error('NETWORK_ERROR');
+        } else if (error.name === 'AbortError') {
+            throw new Error('NETWORK_ERROR');
+        }
+        throw error;
+    }
+}
+
+// Get appropriate error message
+function getErrorMessage(error) {
+    const errorMessages = AI_CHAT_CONFIG.ERROR_MESSAGES;
+    
+    switch (error.message) {
+        case 'API_KEY_MISSING':
+            return errorMessages.API_KEY_MISSING;
+        case 'API_KEY_INVALID':
+            return '⚠️ Invalid API key. Please check your OpenAI API key configuration.';
+        case 'RATE_LIMIT':
+            return errorMessages.RATE_LIMIT;
+        case 'NETWORK_ERROR':
+            return errorMessages.NETWORK_ERROR;
+        case 'API_ERROR':
+        default:
+            return errorMessages.API_ERROR;
+    }
 }
 
 // Add message to chat
@@ -260,6 +315,7 @@ function clearChatHistory() {
 // Clear conversation history
 function clearConversation() {
     conversationHistory = [];
+    localStorage.removeItem('chatHistory');
     chatMessages.innerHTML = '';
     
     // Add welcome message back
@@ -317,5 +373,6 @@ window.aiChatFunctions = {
     addMessage,
     clearChatHistory,
     clearConversation,
-    generateContextualResponse
+    getChatGPTResponse, // Expose the new function
+    getErrorMessage // Expose the new function
 }; 
