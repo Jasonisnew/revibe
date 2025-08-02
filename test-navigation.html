@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Test - Fitness Rehab App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-indicators">
+                <div class="signal-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <span class="status-icons">📶 📶 🔋</span>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <h1>Navigation Test</h1>
+            </div>
+        </div>
+
+        <!-- Test Navigation Buttons -->
+        <div style="padding: 1rem;">
+            <h2>Test Navigation</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                <button onclick="navigateTo('/')" style="padding: 1rem; background: #007AFF; color: white; border: none; border-radius: 0.5rem;">
+                    Go to Home
+                </button>
+                <button onclick="navigateTo('/daily-plans')" style="padding: 1rem; background: #34C759; color: white; border: none; border-radius: 0.5rem;">
+                    Go to Daily Plans
+                </button>
+                <button onclick="navigateTo('/movements')" style="padding: 1rem; background: #FF9500; color: white; border: none; border-radius: 0.5rem;">
+                    Go to Movements
+                </button>
+                <button onclick="navigateTo('/ai-chat')" style="padding: 1rem; background: #AF52DE; color: white; border: none; border-radius: 0.5rem;">
+                    Go to AI Chat
+                </button>
+                <button onclick="navigateTo('/camera')" style="padding: 1rem; background: #FF3B30; color: white; border: none; border-radius: 0.5rem;">
+                    Go to Camera
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-items">
+                <i class="fas fa-home nav-icon active"></i>
+                <i class="fas fa-bolt nav-icon" onclick="navigateTo('/movements')"></i>
+                <div class="camera-button" onclick="navigateTo('/camera')">
+                    <i class="fas fa-play"></i>
+                </div>
+                <i class="fas fa-calendar nav-icon" onclick="navigateTo('/daily-plans')"></i>
+                <i class="fas fa-user nav-icon" onclick="navigateTo('/ai-chat')"></i>
+            </div>
+            <div class="nav-indicator"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Add console logging to debug navigation
+        console.log('Test page loaded');
+        console.log('Current location:', window.location.href);
+        
+        // Override navigateTo to add logging
+        const originalNavigateTo = window.navigateTo;
+        window.navigateTo = function(path) {
+            console.log('Navigation called with path:', path);
+            console.log('Current pathname:', window.location.pathname);
+            originalNavigateTo(path);
+        };
+    </script>
+</body>
+</html> 

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Rehab App</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-indicators">
+                <div class="signal-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <span class="status-icons">📶 📶 🔋</span>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="greeting">
+                    <h1 id="greeting-text">Hi, </h1>
+                    <h1>Carol</h1>
+                </div>
+                <div class="recovery-counter">
+                    <div class="counter-number">30</div>
+                    <div class="counter-text" id="recovery-text">days till recovery</div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Character Video and Progress -->
+        <div class="progress-section">
+            <div class="character-container">
+                <div class="motto" id="motto-text">Never Give Up</div>
+                <div class="character-video">
+                    <video autoplay loop muted playsinline class="video-element">
+                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8%E6%9C%882%E6%97%A5-S6ntf5kenMwQFOpNm4LGrzEeWdg65r.mp4" type="video/mp4">
+                        <div class="fallback-emoji">🦁</div>
+                    </video>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <input type="range" id="progress-slider" class="progress-slider" min="0" max="100" value="60">
+                <div class="progress-thumb" id="progress-thumb">
+                    <video autoplay loop muted playsinline class="thumb-video">
+                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8%E6%9C%882%E6%97%A5-S6ntf5kenMwQFOpNm4LGrzEeWdg65r.mp4" type="video/mp4">
+                        <div class="fallback-emoji-small">🦁</div>
+                    </video>
+                </div>
+            </div>
+
+            <div class="progress-text">
+                <span id="progress-percentage">60% Complete</span>
+            </div>
+        </div>
+
+        <!-- Daily Plans -->
+        <div class="daily-plans">
+            <h2 id="daily-plans-title">Daily Plans</h2>
+
+            <!-- Calendar -->
+            <div class="calendar">
+                <div class="week-days">
+                    <div class="day-item">
+                        <div class="day-name" id="day-1">WED</div>
+                        <div class="day-date active">01</div>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-name" id="day-2">Thu</div>
+                        <div class="day-date">02</div>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-name" id="day-3">Fri</div>
+                        <div class="day-date">03</div>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-name" id="day-4">Sat</div>
+                        <div class="day-date">04</div>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-name" id="day-5">Sun</div>
+                        <div class="day-date">05</div>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-name" id="day-6">Mon</div>
+                        <div class="day-date">06</div>
+                    </div>
+                    <div class="day-item">
+                        <div class="day-name" id="day-7">Tue</div>
+                        <div class="day-date">07</div>
+                    </div>
+                </div>
+                <i class="fas fa-calendar calendar-icon"></i>
+            </div>
+
+            <!-- Progress Cards -->
+            <div class="progress-cards">
+                <div class="card lower-card" onclick="navigateTo('/daily-plans')">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <span class="card-title" id="lower-text">Lower</span>
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="card-value">30%</div>
+                    </div>
+                </div>
+
+                <div class="card upper-card" onclick="navigateTo('/daily-plans')">
+                    <div class="card-content">
+                        <div class="card-header">
+                            <span class="card-title" id="upper-text">Upper</span>
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="card-value">85%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Cards -->
+            <div class="action-cards">
+                <div class="card workout-card" onclick="navigateTo('/movements')">
+                    <div class="card-content">
+                        <div class="card-subtitle" id="workout-text">Find A Suitable Workout</div>
+                        <div class="card-title">Workout</div>
+                        <div class="card-icon workout-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card ai-card" onclick="navigateTo('/ai-chat')">
+                    <div class="card-content">
+                        <div class="card-title" id="ai-text">AI Agent</div>
+                        <div class="card-icon ai-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-items">
+                <i class="fas fa-home nav-icon active"></i>
+                <i class="fas fa-bolt nav-icon" onclick="navigateTo('/movements')"></i>
+                <div class="camera-button" onclick="navigateTo('/camera')">
+                    <i class="fas fa-play"></i>
+                </div>
+                <i class="fas fa-calendar nav-icon" onclick="navigateTo('/daily-plans')"></i>
+                <i class="fas fa-user nav-icon" onclick="navigateTo('/ai-chat')"></i>
+            </div>
+            <div class="nav-indicator"></div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html> 

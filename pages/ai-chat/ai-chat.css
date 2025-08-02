@@ -1,0 +1,248 @@
+/* AI Chat page specific styles */
+
+/* Header modifications for AI chat page */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.back-button {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #374151;
+}
+
+.back-button i {
+    font-size: 1.25rem;
+}
+
+.header-content h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+}
+
+.streak-counter {
+    background: linear-gradient(to right, #fef3c7, #fdba74);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+}
+
+.streak-counter span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #92400e;
+}
+
+/* Chat Container */
+.chat-container {
+    flex: 1;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    overflow-y: auto;
+    max-height: calc(100vh - 300px);
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Message Styles */
+.message {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 80%;
+}
+
+.message.user-message {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.message.ai-message {
+    align-self: flex-start;
+}
+
+.message-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.user-message .message-avatar {
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+}
+
+.ai-message .message-avatar {
+    background: linear-gradient(to bottom right, #dbeafe, #3b82f6);
+}
+
+.message-avatar i {
+    font-size: 1rem;
+    color: #92400e;
+}
+
+.ai-message .message-avatar i {
+    color: #1e40af;
+}
+
+.message-content {
+    flex: 1;
+}
+
+.message-text {
+    background-color: #f3f4f6;
+    padding: 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: #374151;
+}
+
+.user-message .message-text {
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    color: #92400e;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+    text-align: right;
+}
+
+.user-message .message-time {
+    text-align: left;
+}
+
+/* Input Section */
+.input-section {
+    padding: 0 1rem;
+    margin-bottom: 5rem; /* Space for bottom nav */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #f3f4f6;
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+}
+
+.message-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.875rem;
+    color: #374151;
+    padding: 0.5rem;
+}
+
+.message-input::placeholder {
+    color: #9ca3af;
+}
+
+.send-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    color: #92400e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.send-button:hover {
+    transform: scale(1.05);
+}
+
+.send-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.send-button i {
+    font-size: 1rem;
+}
+
+/* Typing indicator */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.75rem;
+}
+
+.typing-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: #9ca3af;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes typing {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Message animations */
+.message {
+    animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+    .message {
+        max-width: 90%;
+    }
+    
+    .chat-container {
+        max-height: calc(100vh - 250px);
+    }
+} 

@@ -1,0 +1,241 @@
+/* Daily Plans page specific styles */
+
+/* Header modifications for daily plans page */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.back-button {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #374151;
+}
+
+.back-button i {
+    font-size: 1.25rem;
+}
+
+.header-content h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+}
+
+.date-display {
+    background: linear-gradient(to right, #fef3c7, #fdba74);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+}
+
+.date-display span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #92400e;
+}
+
+/* Progress Overview */
+.progress-overview {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.progress-card {
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.progress-header h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #92400e;
+    margin: 0;
+}
+
+.progress-percentage {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #92400e;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 9999px;
+    transition: width 0.3s ease-out;
+}
+
+/* Exercise List */
+.exercise-list {
+    padding: 0 1rem;
+    margin-bottom: 5rem; /* Space for bottom nav */
+}
+
+.exercise-list h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 1rem;
+}
+
+.exercise-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s;
+}
+
+.exercise-item:hover {
+    border-color: #fdba74;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-item.completed {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.exercise-item.active {
+    background-color: #fef3c7;
+    border-color: #fdba74;
+}
+
+.exercise-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.exercise-item:not(.completed) .exercise-icon {
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    color: #92400e;
+}
+
+.exercise-item.completed .exercise-icon {
+    background-color: #bbf7d0;
+    color: #166534;
+}
+
+.exercise-item.active .exercise-icon {
+    background: linear-gradient(to bottom right, #fdba74, #f59e0b);
+    color: #ffffff;
+}
+
+.exercise-icon i {
+    font-size: 1.25rem;
+}
+
+.exercise-content {
+    flex: 1;
+}
+
+.exercise-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 0.25rem 0;
+}
+
+.exercise-content p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+
+.exercise-status {
+    display: flex;
+    align-items: center;
+}
+
+.exercise-status i {
+    font-size: 1.5rem;
+    color: #10b981;
+}
+
+.start-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    color: #92400e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+}
+
+.start-btn i {
+    font-size: 1rem;
+}
+
+/* Exercise states */
+.exercise-item.completed .exercise-content h4 {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.exercise-item.completed .exercise-content p {
+    color: #10b981;
+}
+
+.exercise-item.active .exercise-content h4 {
+    color: #92400e;
+}
+
+.exercise-item.active .exercise-content p {
+    color: #b45309;
+}
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+    .progress-card {
+        padding: 1rem;
+    }
+    
+    .exercise-item {
+        padding: 0.75rem;
+    }
+    
+    .exercise-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+} 

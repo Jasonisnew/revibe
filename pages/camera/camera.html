@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera - Fitness Rehab App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="camera.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-indicators">
+                <div class="signal-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <span class="status-icons">📶 📶 🔋</span>
+            </div>
+        </div>
+
+        <!-- Camera View -->
+        <div class="camera-container">
+            <div class="camera-view">
+                <div class="camera-placeholder">
+                    <i class="fas fa-camera"></i>
+                    <p>Camera View</p>
+                </div>
+            </div>
+            
+            <!-- Camera Controls -->
+            <div class="camera-controls">
+                <button class="control-btn" onclick="navigateTo('/')">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="capture-btn" onclick="capturePhoto()">
+                    <div class="capture-circle"></div>
+                </button>
+                <button class="control-btn" onclick="toggleFlash()">
+                    <i class="fas fa-bolt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-items">
+                <i class="fas fa-home nav-icon" onclick="navigateTo('/')"></i>
+                <i class="fas fa-bolt nav-icon" onclick="navigateTo('/movements')"></i>
+                <div class="camera-button active">
+                    <i class="fas fa-play"></i>
+                </div>
+                <i class="fas fa-calendar nav-icon" onclick="navigateTo('/daily-plans')"></i>
+                <i class="fas fa-user nav-icon" onclick="navigateTo('/ai-chat')"></i>
+            </div>
+            <div class="nav-indicator"></div>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="camera.js"></script>
+</body>
+</html> 

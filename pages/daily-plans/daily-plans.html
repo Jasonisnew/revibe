@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Plans - Fitness Rehab App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="daily-plans.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-indicators">
+                <div class="signal-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <span class="status-icons">📶 📶 🔋</span>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="back-button" onclick="navigateTo('/')">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h1 id="daily-plans-title">Daily Plans</h1>
+                <div class="date-display">
+                    <span id="current-date">Today</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Overview -->
+        <div class="progress-overview">
+            <div class="progress-card">
+                <div class="progress-header">
+                    <h3 id="today-progress">Today's Progress</h3>
+                    <span class="progress-percentage">75%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" style="width: 75%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise List -->
+        <div class="exercise-list">
+            <h3 id="exercises-title">Today's Exercises</h3>
+            
+            <div class="exercise-item completed">
+                <div class="exercise-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="exercise-content">
+                    <h4>Morning Stretches</h4>
+                    <p>10 minutes • Completed</p>
+                </div>
+                <div class="exercise-status">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+
+            <div class="exercise-item active">
+                <div class="exercise-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <div class="exercise-content">
+                    <h4>Upper Body Strength</h4>
+                    <p>20 minutes • In Progress</p>
+                </div>
+                <div class="exercise-status">
+                    <button class="start-btn" onclick="startExercise('upper-body')">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <div class="exercise-icon">
+                    <i class="fas fa-walking"></i>
+                </div>
+                <div class="exercise-content">
+                    <h4>Lower Body Mobility</h4>
+                    <p>15 minutes • Not Started</p>
+                </div>
+                <div class="exercise-status">
+                    <button class="start-btn" onclick="startExercise('lower-body')">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="exercise-item">
+                <div class="exercise-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="exercise-content">
+                    <h4>Cool Down</h4>
+                    <p>10 minutes • Not Started</p>
+                </div>
+                <div class="exercise-status">
+                    <button class="start-btn" onclick="startExercise('cool-down')">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-items">
+                <i class="fas fa-home nav-icon" onclick="navigateTo('/')"></i>
+                <i class="fas fa-bolt nav-icon" onclick="navigateTo('/movements')"></i>
+                <div class="camera-button" onclick="navigateTo('/camera')">
+                    <i class="fas fa-play"></i>
+                </div>
+                <i class="fas fa-calendar nav-icon active"></i>
+                <i class="fas fa-user nav-icon" onclick="navigateTo('/ai-chat')"></i>
+            </div>
+            <div class="nav-indicator"></div>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="daily-plans.js"></script>
+</body>
+</html> 

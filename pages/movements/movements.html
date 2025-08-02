@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movements - Fitness Rehab App</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="stylesheet" href="movements.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">9:41</span>
+            <div class="status-indicators">
+                <div class="signal-bars">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+                <span class="status-icons">📶 📶 🔋</span>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="back-button" onclick="navigateTo('/')">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h1 id="movements-title">All Movements</h1>
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-section">
+            <div class="search-container">
+                <i class="fas fa-search search-icon-left"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="Search Movement Name">
+                <i class="fas fa-times clear-icon" id="clear-search"></i>
+            </div>
+        </div>
+
+        <!-- Body View Toggle -->
+        <div class="body-view-section">
+            <div class="view-toggle">
+                <button class="view-btn active" id="front-view-btn">
+                    <i class="fas fa-user"></i>
+                    <span id="front-view-text">Front View</span>
+                </button>
+                <button class="view-btn" id="back-view-btn">
+                    <i class="fas fa-user"></i>
+                    <span id="back-view-text">Back View</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Body Diagram -->
+        <div class="body-diagram-section">
+            <div class="body-diagram" id="body-diagram">
+                <!-- Front view by default -->
+                <div class="body-outline front-view visible">
+                    <div class="body-part shoulder-left" data-part="shoulder" data-side="left"></div>
+                    <div class="body-part shoulder-right" data-part="shoulder" data-side="right"></div>
+                    <div class="body-part arm-left" data-part="arm" data-side="left"></div>
+                    <div class="body-part arm-right" data-part="arm" data-side="right"></div>
+                    <div class="body-part chest" data-part="chest"></div>
+                    <div class="body-part quadriceps-left" data-part="quadriceps" data-side="left"></div>
+                    <div class="body-part quadriceps-right" data-part="quadriceps" data-side="right"></div>
+                    <div class="body-part hamstrings-left" data-part="hamstrings" data-side="left"></div>
+                    <div class="body-part hamstrings-right" data-part="hamstrings" data-side="right"></div>
+                </div>
+                
+                <!-- Back view -->
+                <div class="body-outline back-view">
+                    <div class="body-part shoulder-left" data-part="shoulder" data-side="left"></div>
+                    <div class="body-part shoulder-right" data-part="shoulder" data-side="right"></div>
+                    <div class="body-part arm-left" data-part="arm" data-side="left"></div>
+                    <div class="body-part arm-right" data-part="arm" data-side="right"></div>
+                    <div class="body-part back" data-part="back"></div>
+                    <div class="body-part quadriceps-left" data-part="quadriceps" data-side="left"></div>
+                    <div class="body-part quadriceps-right" data-part="quadriceps" data-side="right"></div>
+                    <div class="body-part hamstrings-left" data-part="hamstrings" data-side="left"></div>
+                    <div class="body-part hamstrings-right" data-part="hamstrings" data-side="right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movement Categories -->
+        <div class="movement-categories">
+            <div class="category-section">
+                <h3 id="upper-body-title">Upper Body</h3>
+                <div class="category-grid">
+                    <div class="category-card" data-category="shoulder">
+                        <div class="category-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <span id="shoulder-text">Shoulder</span>
+                    </div>
+                    <div class="category-card" data-category="arm">
+                        <div class="category-icon">
+                            <i class="fas fa-hand-paper"></i>
+                        </div>
+                        <span id="arm-text">Arm</span>
+                    </div>
+                    <div class="category-card" data-category="chest">
+                        <div class="category-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <span id="chest-text">Chest</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-section">
+                <h3 id="lower-body-title">Lower Body</h3>
+                <div class="category-grid">
+                    <div class="category-card" data-category="quadriceps">
+                        <div class="category-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <span id="quadriceps-text">Quadriceps</span>
+                    </div>
+                    <div class="category-card" data-category="hamstrings">
+                        <div class="category-icon">
+                            <i class="fas fa-walking"></i>
+                        </div>
+                        <span id="hamstrings-text">Hamstrings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-items">
+                <i class="fas fa-home nav-icon" onclick="navigateTo('/')"></i>
+                <i class="fas fa-bolt nav-icon active"></i>
+                <div class="camera-button" onclick="navigateTo('/camera')">
+                    <i class="fas fa-play"></i>
+                </div>
+                <i class="fas fa-calendar nav-icon" onclick="navigateTo('/daily-plans')"></i>
+                <i class="fas fa-user nav-icon" onclick="navigateTo('/ai-chat')"></i>
+            </div>
+            <div class="nav-indicator"></div>
+        </div>
+    </div>
+
+    <script src="../../script.js"></script>
+    <script src="movements.js"></script>
+</body>
+</html> 

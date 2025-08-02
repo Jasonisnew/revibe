@@ -1,0 +1,376 @@
+/* Movements page specific styles */
+
+/* Header modifications for movements page */
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.back-button {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #374151;
+}
+
+.back-button i {
+    font-size: 1.25rem;
+}
+
+.header-content h1 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #000000;
+    margin: 0;
+}
+
+.search-icon {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+/* Search Section */
+.search-section {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+}
+
+.search-icon-left {
+    color: #9ca3af;
+    margin-right: 0.5rem;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
+.clear-icon {
+    color: #9ca3af;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    display: none;
+}
+
+.clear-icon.visible {
+    display: block;
+}
+
+/* Body View Toggle */
+.body-view-section {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+}
+
+.view-toggle {
+    display: flex;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+}
+
+.view-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: none;
+    background: transparent;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: #6b7280;
+    transition: all 0.2s;
+}
+
+.view-btn.active {
+    background-color: #ffffff;
+    color: #374151;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.view-btn i {
+    font-size: 1rem;
+}
+
+/* Body Diagram */
+.body-diagram-section {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.body-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.body-outline {
+    position: relative;
+    width: 120px;
+    height: 200px;
+    background-color: #f3f4f6;
+    border-radius: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.body-part {
+    position: absolute;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.body-part:hover {
+    border-color: #fdba74;
+    background-color: rgba(253, 186, 116, 0.2);
+}
+
+.body-part.active {
+    border-color: #fdba74;
+    background-color: rgba(253, 186, 116, 0.3);
+}
+
+/* Front view body parts */
+.front-view .shoulder-left {
+    top: 20px;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+}
+
+.front-view .shoulder-right {
+    top: 20px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+}
+
+.front-view .arm-left {
+    top: 45px;
+    left: 5px;
+    width: 20px;
+    height: 40px;
+}
+
+.front-view .arm-right {
+    top: 45px;
+    right: 5px;
+    width: 20px;
+    height: 40px;
+}
+
+.front-view .chest {
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 30px;
+}
+
+.front-view .quadriceps-left {
+    bottom: 60px;
+    left: 25px;
+    width: 20px;
+    height: 30px;
+}
+
+.front-view .quadriceps-right {
+    bottom: 60px;
+    right: 25px;
+    width: 20px;
+    height: 30px;
+}
+
+.front-view .hamstrings-left {
+    bottom: 30px;
+    left: 25px;
+    width: 20px;
+    height: 25px;
+}
+
+.front-view .hamstrings-right {
+    bottom: 30px;
+    right: 25px;
+    width: 20px;
+    height: 25px;
+}
+
+/* Back view body parts (hidden by default) */
+.back-view {
+    display: none;
+}
+
+.back-view.visible {
+    display: flex;
+}
+
+/* Back view body parts */
+.back-view .shoulder-left {
+    top: 20px;
+    left: 15px;
+    width: 25px;
+    height: 25px;
+}
+
+.back-view .shoulder-right {
+    top: 20px;
+    right: 15px;
+    width: 25px;
+    height: 25px;
+}
+
+.back-view .arm-left {
+    top: 45px;
+    left: 5px;
+    width: 20px;
+    height: 40px;
+}
+
+.back-view .arm-right {
+    top: 45px;
+    right: 5px;
+    width: 20px;
+    height: 40px;
+}
+
+.back-view .back {
+    top: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 30px;
+}
+
+.back-view .quadriceps-left {
+    bottom: 60px;
+    left: 25px;
+    width: 20px;
+    height: 30px;
+}
+
+.back-view .quadriceps-right {
+    bottom: 60px;
+    right: 25px;
+    width: 20px;
+    height: 30px;
+}
+
+.back-view .hamstrings-left {
+    bottom: 30px;
+    left: 25px;
+    width: 20px;
+    height: 25px;
+}
+
+.back-view .hamstrings-right {
+    bottom: 30px;
+    right: 25px;
+    width: 20px;
+    height: 25px;
+}
+
+/* Movement Categories */
+.movement-categories {
+    padding: 0 1rem;
+    margin-bottom: 5rem; /* Space for bottom nav */
+}
+
+.category-section {
+    margin-bottom: 1.5rem;
+}
+
+.category-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.category-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.category-card:hover {
+    border-color: #fdba74;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-card.active {
+    border-color: #fdba74;
+    background-color: rgba(253, 186, 116, 0.1);
+}
+
+.category-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+}
+
+.category-icon i {
+    color: #92400e;
+    font-size: 1.25rem;
+}
+
+.category-card span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+} 

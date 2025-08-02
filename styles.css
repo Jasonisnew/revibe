@@ -1,0 +1,408 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    line-height: 1.5;
+}
+
+.app-container {
+    max-width: 375px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Status Bar */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    padding-top: 3rem;
+}
+
+.time {
+    font-weight: 600;
+}
+
+.status-indicators {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.signal-bars {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.bar {
+    width: 0.25rem;
+    height: 0.25rem;
+    background-color: #000000;
+    border-radius: 50%;
+}
+
+.status-icons {
+    font-size: 0.875rem;
+    margin-left: 0.5rem;
+}
+
+/* Header */
+.header {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.greeting h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.recovery-counter {
+    background: linear-gradient(to right, #fecaca, #fed7aa);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.counter-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.counter-text {
+    font-size: 0.75rem;
+    color: #000000;
+}
+
+
+
+/* Progress Section */
+.progress-section {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.character-container {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.motto {
+    font-size: 1.125rem;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.character-video {
+    width: 6rem;
+    height: 6rem;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.video-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fallback-emoji {
+    font-size: 2.5rem;
+}
+
+.progress-container {
+    position: relative;
+}
+
+.progress-bar {
+    position: relative;
+    height: 0.75rem;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #fdba74, #fde047);
+    border-radius: 9999px;
+    transition: width 0.3s ease-out;
+    width: 60%;
+}
+
+.progress-slider {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 0.75rem;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.progress-thumb {
+    position: absolute;
+    top: 0;
+    width: 2rem;
+    height: 2rem;
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-10px);
+    overflow: hidden;
+    transition: left 0.3s ease-out;
+    left: calc(60% - 16px);
+}
+
+.thumb-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fallback-emoji-small {
+    font-size: 0.875rem;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.progress-text span {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Daily Plans */
+.daily-plans {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.daily-plans h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+/* Calendar */
+.calendar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.week-days {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.day-item {
+    text-align: center;
+}
+
+.day-name {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+}
+
+.day-date {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.day-date.active {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.calendar-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #9ca3af;
+}
+
+/* Cards */
+.progress-cards,
+.action-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    border: 1px solid #e5e7eb;
+}
+
+.card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.card-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.card-subtitle {
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.card-value {
+    font-size: 1.875rem;
+    font-weight: bold;
+}
+
+.card-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.75rem;
+}
+
+.workout-icon {
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+}
+
+.ai-icon {
+    background: linear-gradient(to bottom right, #fef3c7, #bbf7d0);
+}
+
+/* Card backgrounds */
+.lower-card {
+    background: linear-gradient(to bottom right, #fed7aa, #fef3c7);
+}
+
+.upper-card {
+    background: linear-gradient(to bottom right, #fef3c7, #bbf7d0);
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 375px;
+    background-color: #ffffff;
+    border-top: 1px solid #e5e7eb;
+}
+
+.nav-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+
+.nav-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.nav-icon.active {
+    color: #374151;
+}
+
+.camera-button {
+    width: 3rem;
+    height: 3rem;
+    background-color: #f87171;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.camera-button i {
+    color: #ffffff;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.nav-indicator {
+    width: 8rem;
+    height: 0.25rem;
+    background-color: #000000;
+    border-radius: 9999px;
+    margin: 0 auto 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+    .app-container {
+        max-width: 100%;
+    }
+    
+    .bottom-nav {
+        max-width: 100%;
+    }
+}
+
+/* Utility classes */
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+} 
