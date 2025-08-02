@@ -375,8 +375,10 @@ body {
 
 .camera-button i {
     color: #ffffff;
-    width: 1.5rem;
-    height: 1.5rem;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-indicator {
