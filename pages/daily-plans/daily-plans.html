@@ -50,150 +50,40 @@
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Left Sidebar - Body Part Categories -->
-            <div class="sidebar">
-                <div class="category-item active" onclick="switchCategory('legs')">
-                    <i class="fas fa-walking"></i>
-                    <span>Legs</span>
-                </div>
-                <div class="category-item" onclick="switchCategory('shoulders')">
-                    <i class="fas fa-dumbbell"></i>
-                    <span>Shoulders</span>
-                </div>
-                <div class="category-item" onclick="switchCategory('arms')">
-                    <i class="fas fa-hand-paper"></i>
-                    <span>Arms</span>
-                </div>
-                <div class="category-item" onclick="switchCategory('core')">
-                    <i class="fas fa-heart"></i>
-                    <span>Core</span>
-                </div>
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <div class="category-item active" onclick="switchCategory('shoulders')">
+                <i class="fas fa-dumbbell"></i>
+                <span>Shoulders</span>
             </div>
+            <div class="category-item" onclick="switchCategory('chest')">
+                <i class="fas fa-heart"></i>
+                <span>Chest</span>
+            </div>
+            <div class="category-item" onclick="switchCategory('arms')">
+                <i class="fas fa-hand-paper"></i>
+                <span>Arms</span>
+            </div>
+            <div class="category-item" onclick="switchCategory('thighs')">
+                <i class="fas fa-walking"></i>
+                <span>Thighs</span>
+            </div>
+        </div>
 
-            <!-- Exercise Content Area -->
+                    <!-- Exercise Content Area -->
             <div class="exercise-content-area">
-                <!-- Legs Category -->
-                <div class="exercise-section" id="legs-section">
-                    
-                    <div class="exercise-item completed">
-                        <div class="exercise-photo">
-                            <i class="fas fa-walking"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Squat</h4>
-                            <p>3 sets x 12 reps • Completed</p>
-                        </div>
-                        <button class="start-btn">
-                            <i class="fas fa-check"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item active">
-                        <div class="exercise-photo">
-                            <i class="fas fa-running"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Lunge</h4>
-                            <p>3 sets x 10 reps • In Progress</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('lunge')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-shoe-prints"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Leg Press</h4>
-                            <p>3 sets x 15 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('leg-press')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-arrow-up"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Calf Raise</h4>
-                            <p>3 sets x 20 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('calf-raise')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-arrows-alt-v"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Leg Extension</h4>
-                            <p>3 sets x 12 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('leg-extension')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-                </div>
-
                 <!-- Shoulders Category -->
-                <div class="exercise-section" id="shoulders-section" style="display: none;">
+                <div class="exercise-section" id="shoulders-section">
                     
                     <div class="exercise-item">
                         <div class="exercise-photo">
-                            <i class="fas fa-dumbbell"></i>
+                            <img src="../../assets/images/w-shape-stretch.jpeg" alt="W Shape Stretch" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="exercise-description">
-                            <h4>Shoulder Press</h4>
+                            <h4>W Shape Stretch</h4>
                             <p>3 sets x 10 reps • Not Started</p>
                         </div>
-                        <button class="start-btn" onclick="startExercise('shoulder-press')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-hand-paper"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Lateral Raise</h4>
-                            <p>3 sets x 12 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('lateral-raise')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-arrows-alt-h"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Front Raise</h4>
-                            <p>3 sets x 12 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('front-raise')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-dove"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Rear Delt Fly</h4>
-                            <p>3 sets x 12 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('rear-delt-fly')">
+                        <button class="start-btn" onclick="startExercise('w-shape-stretch')">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
@@ -203,10 +93,10 @@
                             <i class="fas fa-arrow-up"></i>
                         </div>
                         <div class="exercise-description">
-                            <h4>Upright Row</h4>
+                            <h4>Y Shape Stretch</h4>
                             <p>3 sets x 10 reps • Not Started</p>
                         </div>
-                        <button class="start-btn" onclick="startExercise('upright-row')">
+                        <button class="start-btn" onclick="startExercise('y-shape-stretch')">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
@@ -217,108 +107,77 @@
                     
                     <div class="exercise-item">
                         <div class="exercise-photo">
-                            <i class="fas fa-hand-rock"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Bicep Curl</h4>
-                            <p>3 sets x 12 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('bicep-curl')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
                             <i class="fas fa-hand-paper"></i>
                         </div>
                         <div class="exercise-description">
-                            <h4>Tricep Pushdown</h4>
-                            <p>3 sets x 15 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('tricep-pushdown')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-gavel"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Hammer Curl</h4>
-                            <p>3 sets x 12 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('hammer-curl')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-level-down-alt"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Tricep Dip</h4>
+                            <h4>Side Arms Raise</h4>
                             <p>3 sets x 10 reps • Not Started</p>
                         </div>
-                        <button class="start-btn" onclick="startExercise('tricep-dip')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-pray"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Preacher Curl</h4>
-                            <p>3 sets x 10 reps • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('preacher-curl')">
+                        <button class="start-btn" onclick="startExercise('side-arms-raise')">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Core Category -->
-                <div class="exercise-section" id="core-section" style="display: none;">
+                <!-- Chest Category -->
+                <div class="exercise-section" id="chest-section" style="display: none;">
                     
                     <div class="exercise-item">
                         <div class="exercise-photo">
                             <i class="fas fa-heart"></i>
                         </div>
                         <div class="exercise-description">
-                            <h4>Plank</h4>
-                            <p>3 sets x 30 sec • Not Started</p>
+                            <h4>Chest Opener</h4>
+                            <p>3 sets x 10 reps • Not Started</p>
                         </div>
-                        <button class="start-btn" onclick="startExercise('plank')">
+                        <button class="start-btn" onclick="startExercise('chest-opener')">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Thighs Category -->
+                <div class="exercise-section" id="thighs-section" style="display: none;">
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-photo">
+                            <i class="fas fa-arrows-alt-v"></i>
+                        </div>
+                        <div class="exercise-description">
+                            <h4>Seated Knee Extension</h4>
+                            <p>3 sets x 12 reps • Not Started</p>
+                        </div>
+                        <button class="start-btn" onclick="startExercise('seated-knee-extension')">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
 
                     <div class="exercise-item">
                         <div class="exercise-photo">
-                            <i class="fas fa-sync-alt"></i>
+                            <i class="fas fa-walking"></i>
                         </div>
                         <div class="exercise-description">
-                            <h4>Crunch</h4>
-                            <p>3 sets x 20 reps • Not Started</p>
+                            <h4>Mini Squat</h4>
+                            <p>3 sets x 10 reps • Not Started</p>
                         </div>
-                        <button class="start-btn" onclick="startExercise('crunch')">
+                        <button class="start-btn" onclick="startExercise('mini-squat')">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
+                </div>
 
+                <!-- Shoulders Category -->
+                <div class="exercise-section" id="shoulders-section" style="display: none;">
+                    
                     <div class="exercise-item">
                         <div class="exercise-photo">
-                            <i class="fas fa-redo"></i>
+                            <img src="../../assets/images/w-shape-stretch.jpeg" alt="W Shape Stretch" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="exercise-description">
-                            <h4>Russian Twist</h4>
-                            <p>3 sets x 20 reps • Not Started</p>
+                            <h4>W Shape Stretch</h4>
+                            <p>3 sets x 10 reps • Not Started</p>
                         </div>
-                        <button class="start-btn" onclick="startExercise('russian-twist')">
+                        <button class="start-btn" onclick="startExercise('w-shape-stretch')">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>
@@ -328,23 +187,10 @@
                             <i class="fas fa-arrow-up"></i>
                         </div>
                         <div class="exercise-description">
-                            <h4>Leg Raise</h4>
-                            <p>3 sets x 15 reps • Not Started</p>
+                            <h4>Y Shape Stretch</h4>
+                            <p>3 sets x 10 reps • Not Started</p>
                         </div>
-                        <button class="start-btn" onclick="startExercise('leg-raise')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                    </div>
-
-                    <div class="exercise-item">
-                        <div class="exercise-photo">
-                            <i class="fas fa-mountain"></i>
-                        </div>
-                        <div class="exercise-description">
-                            <h4>Mountain Climber</h4>
-                            <p>3 sets x 30 sec • Not Started</p>
-                        </div>
-                        <button class="start-btn" onclick="startExercise('mountain-climber')">
+                        <button class="start-btn" onclick="startExercise('y-shape-stretch')">
                             <i class="fas fa-play"></i>
                         </button>
                     </div>

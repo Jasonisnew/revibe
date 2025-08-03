@@ -7,176 +7,78 @@ let dailyStats = {};
 
 // Exercise data with categories
 const exercises = {
-    // Legs exercises
-    'squat': {
-        name: 'Squat',
-        duration: '5 minutes',
-        category: 'legs',
-        description: '3 sets x 12 reps • Strengthen leg muscles',
-        icon: 'fas fa-walking'
-    },
-    'lunge': {
-        name: 'Lunge',
-        duration: '5 minutes',
-        category: 'legs',
-        description: '3 sets x 10 reps • Improve balance and coordination',
-        icon: 'fas fa-running'
-    },
-    'leg-press': {
-        name: 'Leg Press',
-        duration: '5 minutes',
-        category: 'legs',
-        description: '3 sets x 15 reps • Strengthen thigh muscles',
-        icon: 'fas fa-shoe-prints'
-    },
-    'calf-raise': {
-        name: 'Calf Raise',
+    // Arms exercises
+    'side-arms-raise': {
+        name: 'Side Arms Raise',
         duration: '3 minutes',
-        category: 'legs',
-        description: '3 sets x 20 reps • Work calf muscles',
-        icon: 'fas fa-arrow-up'
+        category: 'arms',
+        description: '3 sets x 10 reps • Improve arm mobility',
+        icon: 'fas fa-hand-paper'
     },
-    'leg-extension': {
-        name: 'Leg Extension',
+
+    // Chest exercises
+    'chest-opener': {
+        name: 'Chest Opener',
+        duration: '3 minutes',
+        category: 'chest',
+        description: '3 sets x 10 reps • Open chest muscles',
+        icon: 'fas fa-heart'
+    },
+
+    // Thighs exercises
+    'seated-knee-extension': {
+        name: 'Seated Knee Extension',
         duration: '4 minutes',
-        category: 'legs',
+        category: 'thighs',
         description: '3 sets x 12 reps • Strengthen quadriceps',
         icon: 'fas fa-arrows-alt-v'
     },
+    'mini-squat': {
+        name: 'Mini Squat',
+        duration: '3 minutes',
+        category: 'thighs',
+        description: '3 sets x 10 reps • Strengthen hamstrings',
+        icon: 'fas fa-walking'
+    },
 
     // Shoulders exercises
-    'shoulder-press': {
-        name: 'Shoulder Press',
-        duration: '5 minutes',
+    'w-shape-stretch': {
+        name: 'W Shape Stretch',
+        duration: '3 minutes',
         category: 'shoulders',
-        description: '3 sets x 10 reps • Strengthen shoulder muscles',
-        icon: 'fas fa-dumbbell'
-    },
-    'lateral-raise': {
-        name: 'Lateral Raise',
-        duration: '4 minutes',
-        category: 'shoulders',
-        description: '3 sets x 12 reps • Shape shoulder lines',
-        icon: 'fas fa-hand-paper'
-    },
-    'front-raise': {
-        name: 'Front Raise',
-        duration: '4 minutes',
-        category: 'shoulders',
-        description: '3 sets x 12 reps • Strengthen front deltoids',
+        description: '3 sets x 10 reps • Shoulder mobility',
         icon: 'fas fa-arrows-alt-h'
     },
-    'rear-delt-fly': {
-        name: 'Rear Delt Fly',
-        duration: '4 minutes',
-        category: 'shoulders',
-        description: '3 sets x 12 reps • Improve shoulder balance',
-        icon: 'fas fa-dove'
-    },
-    'upright-row': {
-        name: 'Upright Row',
-        duration: '5 minutes',
-        category: 'shoulders',
-        description: '3 sets x 10 reps • Comprehensive shoulder training',
-        icon: 'fas fa-arrow-up'
-    },
-
-    // Arms exercises
-    'bicep-curl': {
-        name: 'Bicep Curl',
-        duration: '4 minutes',
-        category: 'arms',
-        description: '3 sets x 12 reps • Strengthen biceps',
-        icon: 'fas fa-hand-rock'
-    },
-    'tricep-pushdown': {
-        name: 'Tricep Pushdown',
-        duration: '4 minutes',
-        category: 'arms',
-        description: '3 sets x 15 reps • Shape arm lines',
-        icon: 'fas fa-hand-paper'
-    },
-    'hammer-curl': {
-        name: 'Hammer Curl',
-        duration: '4 minutes',
-        category: 'arms',
-        description: '3 sets x 12 reps • Comprehensive arm training',
-        icon: 'fas fa-gavel'
-    },
-    'tricep-dip': {
-        name: 'Tricep Dip',
-        duration: '5 minutes',
-        category: 'arms',
-        description: '3 sets x 10 reps • Bodyweight training',
-        icon: 'fas fa-level-down-alt'
-    },
-    'preacher-curl': {
-        name: 'Preacher Curl',
-        duration: '4 minutes',
-        category: 'arms',
-        description: '3 sets x 10 reps • Isolated bicep training',
-        icon: 'fas fa-pray'
-    },
-
-    // Core exercises
-    'plank': {
-        name: 'Plank',
+    'y-shape-stretch': {
+        name: 'Y Shape Stretch',
         duration: '3 minutes',
-        category: 'core',
-        description: '3 sets x 30 sec • Strengthen core stability',
-        icon: 'fas fa-heart'
-    },
-    'crunch': {
-        name: 'Crunch',
-        duration: '4 minutes',
-        category: 'core',
-        description: '3 sets x 20 reps • Work rectus abdominis',
-        icon: 'fas fa-sync-alt'
-    },
-    'russian-twist': {
-        name: 'Russian Twist',
-        duration: '4 minutes',
-        category: 'core',
-        description: '3 sets x 20 reps • Strengthen oblique muscles',
-        icon: 'fas fa-redo'
-    },
-    'leg-raise': {
-        name: 'Leg Raise',
-        duration: '4 minutes',
-        category: 'core',
-        description: '3 sets x 15 reps • Lower ab training',
+        category: 'shoulders',
+        description: '3 sets x 10 reps • Shoulder flexibility',
         icon: 'fas fa-arrow-up'
-    },
-    'mountain-climber': {
-        name: 'Mountain Climber',
-        duration: '5 minutes',
-        category: 'core',
-        description: '3 sets x 30 sec • Full body core training',
-        icon: 'fas fa-mountain'
     }
 };
 
 // Category data
 const categories = {
-    legs: {
-        name: 'Leg Training',
+    arms: {
+        name: 'Arms',
+        icon: 'fas fa-hand-paper',
+        exercises: ['side-arms-raise']
+    },
+    chest: {
+        name: 'Chest',
+        icon: 'fas fa-heart',
+        exercises: ['chest-opener']
+    },
+    thighs: {
+        name: 'Thighs',
         icon: 'fas fa-walking',
-        exercises: ['squat', 'lunge', 'leg-press', 'calf-raise', 'leg-extension']
+        exercises: ['seated-knee-extension', 'mini-squat']
     },
     shoulders: {
-        name: 'Shoulder Training',
+        name: 'Shoulders',
         icon: 'fas fa-dumbbell',
-        exercises: ['shoulder-press', 'lateral-raise', 'front-raise', 'rear-delt-fly', 'upright-row']
-    },
-    arms: {
-        name: 'Arm Training',
-        icon: 'fas fa-hand-paper',
-        exercises: ['bicep-curl', 'tricep-pushdown', 'hammer-curl', 'tricep-dip', 'preacher-curl']
-    },
-    core: {
-        name: 'Core Training',
-        icon: 'fas fa-heart',
-        exercises: ['plank', 'crunch', 'russian-twist', 'leg-raise', 'mountain-climber']
+        exercises: ['w-shape-stretch', 'y-shape-stretch']
     }
 };
 
@@ -372,13 +274,7 @@ function updateProgressBar() {
         progressText.textContent = `${progressPercentage}%`;
         
         // Update progress card color based on percentage
-        if (progressPercentage >= 80) {
-            progressBar.style.background = 'linear-gradient(to right, #22c55e, #16a34a)';
-        } else if (progressPercentage >= 50) {
-            progressBar.style.background = 'linear-gradient(to right, #f59e0b, #d97706)';
-        } else {
-            progressBar.style.background = 'linear-gradient(to right, #ef4444, #dc2626)';
-        }
+            progressBar.style.background = 'linear-gradient(to right, #FFB0A3, #FFD3A7, #FFEB99, #BBF6C6)';
     }
 }
 
