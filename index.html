@@ -11,7 +11,7 @@
     <div class="app-container">
         <!-- Status Bar -->
         <div class="status-bar">
-            <span class="time">9:41</span>
+            <!-- <span class="time">9:41</span>
             <div class="status-indicators">
                 <div class="signal-bars">
                     <div class="bar"></div>
@@ -20,7 +20,7 @@
                     <div class="bar"></div>
                 </div>
                 <span class="status-icons">📶 📶 🔋</span>
-            </div>
+            </div> -->
         </div>
 
         <!-- Header -->
@@ -42,12 +42,9 @@
         <!-- Character Video and Progress -->
         <div class="progress-section">
             <div class="character-container">
-                <div class="motto" id="motto-text">Never Give Up</div>
+                <!-- <div class="motto" id="motto-text">Never Give Up</div> -->
                 <div class="character-video">
-                    <video autoplay loop muted playsinline class="video-element">
-                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8%E6%9C%882%E6%97%A5-S6ntf5kenMwQFOpNm4LGrzEeWdg65r.mp4" type="video/mp4">
-                        <div class="fallback-emoji">🦁</div>
-                    </video>
+                    <img src="./assets/images/avatar.gif" alt="Character Avatar" class="video-element">
                 </div>
             </div>
 
@@ -57,10 +54,7 @@
                 </div>
                 <input type="range" id="progress-slider" class="progress-slider" min="0" max="100" value="60">
                 <div class="progress-thumb" id="progress-thumb">
-                    <video autoplay loop muted playsinline class="thumb-video">
-                        <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/8%E6%9C%882%E6%97%A5-S6ntf5kenMwQFOpNm4LGrzEeWdg65r.mp4" type="video/mp4">
-                        <div class="fallback-emoji-small">🦁</div>
-                    </video>
+                    <img src="./assets/images/avatarflat.png" alt="Character Avatar" class="thumb-video">
                 </div>
             </div>
 
@@ -136,7 +130,6 @@
                 <div class="card workout-card" onclick="navigateTo('/movements')">
                     <div class="card-content">
                         <div class="card-subtitle" id="workout-text">Find A Suitable Workout</div>
-                        <div class="card-title">Workout</div>
                         <div class="card-icon workout-icon">
                             <i class="fas fa-bolt"></i>
                         </div>

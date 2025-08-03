@@ -194,6 +194,12 @@
     padding: 0.75rem;
 }
 
+.typing-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
 .typing-dot {
     width: 0.5rem;
     height: 0.5rem;

@@ -1,36 +1,34 @@
 // AI Chat Configuration
-const AI_CHAT_CONFIG = {
+const CONFIG = {
     // OpenAI API Configuration
-    OPENAI_API_KEY: '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', // Replace with your actual OpenAI API key
+    OPENAI_API_KEY: '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', // Add your OpenAI API key here
     OPENAI_API_URL: 'https://api.openai.com/v1/chat/completions',
+    OPENAI_MODEL: 'gpt-3.5-turbo', // or 'gpt-4' for better responses
     
-    // Model Configuration
-    MODEL: 'gpt-3.5-turbo',
-    MAX_TOKENS: 300,
-    TEMPERATURE: 0.7,
-    TOP_P: 1,
-    FREQUENCY_PENALTY: 0,
-    PRESENCE_PENALTY: 0,
+    // Chat Configuration
+    MAX_MESSAGES: 50, // Maximum messages to keep in conversation
+    TYPING_DELAY: 1000, // Delay before showing typing indicator (ms)
     
-    // System Prompt
-    SYSTEM_PROMPT: `You are a helpful AI assistant specializing in fitness and rehabilitation. You provide guidance on exercises, recovery techniques, and general fitness advice. Always prioritize safety and recommend consulting healthcare professionals when appropriate. Keep responses concise, encouraging, and practical.`,
+    // System prompt for the AI
+    SYSTEM_PROMPT: `You are a helpful fitness and rehabilitation assistant. You help users with:
+    - Exercise recommendations and form guidance
+    - Rehabilitation exercises and recovery tips
+    - Fitness planning and workout routines
+    - Injury prevention and safety advice
+    - General health and wellness questions
     
-    // UI Configuration
-    TYPING_DELAY: 1000, // Minimum delay to show typing indicator
-    MAX_CONVERSATION_LENGTH: 50, // Maximum number of messages to keep in history
+    Always provide safe, evidence-based advice and encourage users to consult healthcare professionals for medical concerns.`,
     
-    // Error Messages
+    // Error messages
     ERROR_MESSAGES: {
-        API_KEY_MISSING: '⚠️ Please configure your OpenAI API key to use the AI chat feature.',
+        NO_API_KEY: 'OpenAI API key not configured. Please add your API key to config.js',
         API_ERROR: 'Sorry, I encountered an error. Please try again.',
         NETWORK_ERROR: 'Network error. Please check your connection and try again.',
-        RATE_LIMIT: 'Rate limit exceeded. Please wait a moment and try again.'
+        RATE_LIMIT: 'Too many requests. Please wait a moment and try again.'
     }
 };
 
-// Export configuration
+// Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = AI_CHAT_CONFIG;
-} else {
-    window.AI_CHAT_CONFIG = AI_CHAT_CONFIG;
+    module.exports = CONFIG;
 } 
