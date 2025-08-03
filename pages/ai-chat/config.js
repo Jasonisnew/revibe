@@ -17,7 +17,7 @@ const CONFIG = {
     - Injury prevention and safety advice
     - General health and wellness questions
     
-    Always provide safe, evidence-based advice and encourage users to consult healthcare professionals for medical concerns.`,
+    Always provide safe, evidence-based advice and encourage users to consult healthcare professionals for medical concerns. Make the respond concise and to the point.`,
     
     // Error messages
     ERROR_MESSAGES: {
