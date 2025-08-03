@@ -1,7 +1,7 @@
 // AI Chat Configuration
 const CONFIG = {
     // OpenAI API Configuration
-    OPENAI_API_KEY: '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', // Add your OpenAI API key here
+    OPENAI_API_KEY: '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', // Add your OpenAI API key here
     OPENAI_API_URL: 'https://api.openai.com/v1/chat/completions',
     OPENAI_MODEL: 'gpt-3.5-turbo', // or 'gpt-4' for better responses
     

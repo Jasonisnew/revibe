@@ -5,31 +5,178 @@ let currentExercise = null;
 let exerciseProgress = {};
 let dailyStats = {};
 
-// Exercise data
+// Exercise data with categories
 const exercises = {
-    'morning-stretches': {
-        name: 'Morning Stretches',
-        duration: '10 minutes',
-        category: 'warmup',
-        description: 'Gentle stretching to improve flexibility and reduce stiffness'
+    // Legs exercises
+    'squat': {
+        name: 'Squat',
+        duration: '5 minutes',
+        category: 'legs',
+        description: '3 sets x 12 reps • Strengthen leg muscles',
+        icon: 'fas fa-walking'
     },
-    'upper-body': {
-        name: 'Upper Body Strength',
-        duration: '20 minutes',
-        category: 'strength',
-        description: 'Focus on shoulder, arm, and chest exercises'
+    'lunge': {
+        name: 'Lunge',
+        duration: '5 minutes',
+        category: 'legs',
+        description: '3 sets x 10 reps • Improve balance and coordination',
+        icon: 'fas fa-running'
     },
-    'lower-body': {
-        name: 'Lower Body Mobility',
-        duration: '15 minutes',
-        category: 'mobility',
-        description: 'Improve hip and knee range of motion'
+    'leg-press': {
+        name: 'Leg Press',
+        duration: '5 minutes',
+        category: 'legs',
+        description: '3 sets x 15 reps • Strengthen thigh muscles',
+        icon: 'fas fa-shoe-prints'
     },
-    'cool-down': {
-        name: 'Cool Down',
-        duration: '10 minutes',
-        category: 'recovery',
-        description: 'Gentle exercises to help your body recover'
+    'calf-raise': {
+        name: 'Calf Raise',
+        duration: '3 minutes',
+        category: 'legs',
+        description: '3 sets x 20 reps • Work calf muscles',
+        icon: 'fas fa-arrow-up'
+    },
+    'leg-extension': {
+        name: 'Leg Extension',
+        duration: '4 minutes',
+        category: 'legs',
+        description: '3 sets x 12 reps • Strengthen quadriceps',
+        icon: 'fas fa-arrows-alt-v'
+    },
+
+    // Shoulders exercises
+    'shoulder-press': {
+        name: 'Shoulder Press',
+        duration: '5 minutes',
+        category: 'shoulders',
+        description: '3 sets x 10 reps • Strengthen shoulder muscles',
+        icon: 'fas fa-dumbbell'
+    },
+    'lateral-raise': {
+        name: 'Lateral Raise',
+        duration: '4 minutes',
+        category: 'shoulders',
+        description: '3 sets x 12 reps • Shape shoulder lines',
+        icon: 'fas fa-hand-paper'
+    },
+    'front-raise': {
+        name: 'Front Raise',
+        duration: '4 minutes',
+        category: 'shoulders',
+        description: '3 sets x 12 reps • Strengthen front deltoids',
+        icon: 'fas fa-arrows-alt-h'
+    },
+    'rear-delt-fly': {
+        name: 'Rear Delt Fly',
+        duration: '4 minutes',
+        category: 'shoulders',
+        description: '3 sets x 12 reps • Improve shoulder balance',
+        icon: 'fas fa-dove'
+    },
+    'upright-row': {
+        name: 'Upright Row',
+        duration: '5 minutes',
+        category: 'shoulders',
+        description: '3 sets x 10 reps • Comprehensive shoulder training',
+        icon: 'fas fa-arrow-up'
+    },
+
+    // Arms exercises
+    'bicep-curl': {
+        name: 'Bicep Curl',
+        duration: '4 minutes',
+        category: 'arms',
+        description: '3 sets x 12 reps • Strengthen biceps',
+        icon: 'fas fa-hand-rock'
+    },
+    'tricep-pushdown': {
+        name: 'Tricep Pushdown',
+        duration: '4 minutes',
+        category: 'arms',
+        description: '3 sets x 15 reps • Shape arm lines',
+        icon: 'fas fa-hand-paper'
+    },
+    'hammer-curl': {
+        name: 'Hammer Curl',
+        duration: '4 minutes',
+        category: 'arms',
+        description: '3 sets x 12 reps • Comprehensive arm training',
+        icon: 'fas fa-gavel'
+    },
+    'tricep-dip': {
+        name: 'Tricep Dip',
+        duration: '5 minutes',
+        category: 'arms',
+        description: '3 sets x 10 reps • Bodyweight training',
+        icon: 'fas fa-level-down-alt'
+    },
+    'preacher-curl': {
+        name: 'Preacher Curl',
+        duration: '4 minutes',
+        category: 'arms',
+        description: '3 sets x 10 reps • Isolated bicep training',
+        icon: 'fas fa-pray'
+    },
+
+    // Core exercises
+    'plank': {
+        name: 'Plank',
+        duration: '3 minutes',
+        category: 'core',
+        description: '3 sets x 30 sec • Strengthen core stability',
+        icon: 'fas fa-heart'
+    },
+    'crunch': {
+        name: 'Crunch',
+        duration: '4 minutes',
+        category: 'core',
+        description: '3 sets x 20 reps • Work rectus abdominis',
+        icon: 'fas fa-sync-alt'
+    },
+    'russian-twist': {
+        name: 'Russian Twist',
+        duration: '4 minutes',
+        category: 'core',
+        description: '3 sets x 20 reps • Strengthen oblique muscles',
+        icon: 'fas fa-redo'
+    },
+    'leg-raise': {
+        name: 'Leg Raise',
+        duration: '4 minutes',
+        category: 'core',
+        description: '3 sets x 15 reps • Lower ab training',
+        icon: 'fas fa-arrow-up'
+    },
+    'mountain-climber': {
+        name: 'Mountain Climber',
+        duration: '5 minutes',
+        category: 'core',
+        description: '3 sets x 30 sec • Full body core training',
+        icon: 'fas fa-mountain'
+    }
+};
+
+// Category data
+const categories = {
+    legs: {
+        name: 'Leg Training',
+        icon: 'fas fa-walking',
+        exercises: ['squat', 'lunge', 'leg-press', 'calf-raise', 'leg-extension']
+    },
+    shoulders: {
+        name: 'Shoulder Training',
+        icon: 'fas fa-dumbbell',
+        exercises: ['shoulder-press', 'lateral-raise', 'front-raise', 'rear-delt-fly', 'upright-row']
+    },
+    arms: {
+        name: 'Arm Training',
+        icon: 'fas fa-hand-paper',
+        exercises: ['bicep-curl', 'tricep-pushdown', 'hammer-curl', 'tricep-dip', 'preacher-curl']
+    },
+    core: {
+        name: 'Core Training',
+        icon: 'fas fa-heart',
+        exercises: ['plank', 'crunch', 'russian-twist', 'leg-raise', 'mountain-climber']
     }
 };
 
@@ -61,171 +208,142 @@ function saveExerciseProgress() {
     localStorage.setItem('dailyStats', JSON.stringify(dailyStats));
 }
 
-// Start exercise function
-function startExercise(exerciseType) {
-    if (currentExercise) {
-        showNotification('Please complete the current exercise first', 'warning');
+// Switch category function
+function switchCategory(categoryName) {
+    // Update active category in sidebar
+    const categoryItems = document.querySelectorAll('.category-item');
+    categoryItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    const activeCategoryItem = document.querySelector(`[onclick="switchCategory('${categoryName}')"]`);
+    if (activeCategoryItem) {
+        activeCategoryItem.classList.add('active');
+    }
+    
+    // Hide all exercise sections
+    const exerciseSections = document.querySelectorAll('.exercise-section');
+    exerciseSections.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Show selected category section
+    const targetSection = document.getElementById(`${categoryName}-section`);
+    if (targetSection) {
+        targetSection.style.display = 'block';
+    }
+    
+    // Update progress for the selected category
+    updateCategoryProgress(categoryName);
+}
+
+// Update category progress
+function updateCategoryProgress(categoryName) {
+    const category = categories[categoryName];
+    if (!category) return;
+    
+    const completedExercises = category.exercises.filter(exerciseId => {
+        const exercise = exercises[exerciseId];
+        if (!exercise) return false;
+        
+        const exerciseItems = document.querySelectorAll('.exercise-item');
+        for (let item of exerciseItems) {
+            const exerciseName = item.querySelector('h4').textContent;
+            if (exerciseName === exercise.name) {
+                return item.classList.contains('completed');
+            }
+        }
+        return false;
+    }).length;
+    
+    const totalExercises = category.exercises.length;
+    const progressPercentage = Math.round((completedExercises / totalExercises) * 100);
+    
+    console.log(`${category.name} progress: ${completedExercises}/${totalExercises} (${progressPercentage}%)`);
+}
+
+// Start exercise function - navigate to camera page
+function startExercise(exerciseId) {
+    const exercise = exercises[exerciseId];
+    if (!exercise) {
+        console.error('Exercise not found:', exerciseId);
         return;
     }
     
-    currentExercise = exerciseType;
-    console.log(`Starting exercise: ${exerciseType}`);
+    console.log(`Starting exercise: ${exercise.name}`);
     
-    // Update UI to show exercise is active
-    updateExerciseStatus(exerciseType, 'active');
+    // Store exercise data for camera page
+    localStorage.setItem('currentExercise', JSON.stringify({
+        id: exerciseId,
+        name: exercise.name,
+        duration: exercise.duration,
+        category: exercise.category,
+        description: exercise.description
+    }));
     
-    // Show exercise details modal
-    showExerciseModal(exerciseType);
-    
-    // Start timer
-    startExerciseTimer(exerciseType);
+    // Navigate to camera page
+    navigateTo('/camera');
 }
 
-// Show exercise modal with details
-function showExerciseModal(exerciseType) {
-    const exercise = exercises[exerciseType];
-    if (!exercise) return;
+// Start all exercises in a category
+function startCategoryExercises(categoryName) {
+    const category = categories[categoryName];
+    if (!category) {
+        console.error('Category not found:', categoryName);
+        return;
+    }
     
-    const modal = document.createElement('div');
-    modal.className = 'exercise-modal';
-    modal.innerHTML = `
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>${exercise.name}</h3>
-                <button class="close-btn" onclick="closeExerciseModal()">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p><strong>Duration:</strong> ${exercise.duration}</p>
-                <p><strong>Category:</strong> ${exercise.category}</p>
-                <p><strong>Description:</strong> ${exercise.description}</p>
-                <div class="exercise-timer">
-                    <div class="timer-display" id="timer-display">00:00</div>
-                    <div class="timer-controls">
-                        <button class="timer-btn" onclick="pauseExercise()">
-                            <i class="fas fa-pause"></i>
-                        </button>
-                        <button class="timer-btn" onclick="completeExercise('${exerciseType}')">
-                            <i class="fas fa-check"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+    console.log(`Starting all exercises in category: ${category.name}`);
     
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        animation: fadeIn 0.3s ease-out;
-    `;
+    // Store category data for camera page
+    localStorage.setItem('currentCategory', JSON.stringify({
+        name: categoryName,
+        displayName: category.name,
+        exercises: category.exercises
+    }));
     
-    document.body.appendChild(modal);
+    // Navigate to camera page
+    navigateTo('/camera');
 }
 
-// Close exercise modal
-function closeExerciseModal() {
-    const modal = document.querySelector('.exercise-modal');
-    if (modal) {
-        modal.remove();
-    }
-    currentExercise = null;
-}
-
-// Start exercise timer
-function startExerciseTimer(exerciseType) {
-    const exercise = exercises[exerciseType];
-    if (!exercise) return;
+// Start all exercises
+function startAllExercises() {
+    console.log('Starting all exercises');
     
-    // Parse duration (e.g., "20 minutes" -> 20)
-    const duration = parseInt(exercise.duration.match(/\d+/)[0]);
-    let timeRemaining = duration * 60; // Convert to seconds
+    // Store all exercises data for camera page
+    const allExercises = [];
+    Object.keys(categories).forEach(categoryName => {
+        const category = categories[categoryName];
+        category.exercises.forEach(exerciseId => {
+            const exercise = exercises[exerciseId];
+            if (exercise) {
+                allExercises.push({
+                    id: exerciseId,
+                    name: exercise.name,
+                    duration: exercise.duration,
+                    category: exercise.category,
+                    description: exercise.description
+                });
+            }
+        });
+    });
     
-    const timerDisplay = document.getElementById('timer-display');
-    if (!timerDisplay) return;
+    localStorage.setItem('allExercises', JSON.stringify(allExercises));
     
-    const timer = setInterval(() => {
-        timeRemaining--;
-        
-        const minutes = Math.floor(timeRemaining / 60);
-        const seconds = timeRemaining % 60;
-        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        
-        if (timeRemaining <= 0) {
-            clearInterval(timer);
-            completeExercise(exerciseType);
-        }
-    }, 1000);
-    
-    // Store timer reference
-    window.currentTimer = timer;
-}
-
-// Pause exercise
-function pauseExercise() {
-    if (window.currentTimer) {
-        clearInterval(window.currentTimer);
-        showNotification('Exercise paused', 'info');
-    }
-}
-
-// Complete exercise function
-function completeExercise(exerciseType) {
-    if (window.currentTimer) {
-        clearInterval(window.currentTimer);
-    }
-    
-    // Update exercise status
-    updateExerciseStatus(exerciseType, 'completed');
-    
-    // Record completion
-    const today = new Date().toISOString().split('T')[0];
-    if (!exerciseProgress[today]) {
-        exerciseProgress[today] = {};
-    }
-    exerciseProgress[today][exerciseType] = {
-        completed: true,
-        timestamp: new Date().toISOString()
-    };
-    
-    // Update daily stats
-    if (!dailyStats[today]) {
-        dailyStats[today] = {
-            completed: 0,
-            total: Object.keys(exercises).length
-        };
-    }
-    dailyStats[today].completed++;
-    
-    // Save progress
-    saveExerciseProgress();
-    
-    // Close modal
-    closeExerciseModal();
-    
-    // Update progress bar
-    updateProgressBar();
-    
-    // Show completion notification
-    showCompletionNotification(exerciseType);
+    // Navigate to camera page
+    navigateTo('/camera');
 }
 
 // Update exercise status
-function updateExerciseStatus(exerciseType, status) {
+function updateExerciseStatus(exerciseId, status) {
+    const exercise = exercises[exerciseId];
+    if (!exercise) return;
+    
     const exerciseItems = document.querySelectorAll('.exercise-item');
     
     exerciseItems.forEach(item => {
-        const exerciseName = item.querySelector('h4').textContent.toLowerCase();
-        if (exerciseName.includes(exerciseType.replace('-', ' '))) {
+        const exerciseName = item.querySelector('h4').textContent;
+        if (exerciseName === exercise.name) {
             // Remove all status classes
             item.classList.remove('completed', 'active');
             
@@ -262,90 +380,6 @@ function updateProgressBar() {
             progressBar.style.background = 'linear-gradient(to right, #ef4444, #dc2626)';
         }
     }
-}
-
-// Show exercise notification
-function showExerciseNotification(exerciseType) {
-    const exercise = exercises[exerciseType];
-    if (!exercise) return;
-    
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = 'exercise-notification';
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i class="fas fa-play"></i>
-            <span>Starting ${exercise.name}...</span>
-        </div>
-    `;
-    
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(to right, #fef3c7, #fdba74);
-        color: #92400e;
-        padding: 1rem 1.5rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        animation: slideDown 0.3s ease-out;
-    `;
-    
-    // Add to page
-    document.body.appendChild(notification);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        notification.style.animation = 'slideUp 0.3s ease-out';
-        setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
-}
-
-// Show completion notification
-function showCompletionNotification(exerciseType) {
-    const exercise = exercises[exerciseType];
-    if (!exercise) return;
-    
-    const notification = document.createElement('div');
-    notification.className = 'completion-notification';
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i class="fas fa-check-circle"></i>
-            <span>${exercise.name} completed!</span>
-        </div>
-    `;
-    
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: linear-gradient(to right, #bbf7d0, #86efac);
-        color: #166534;
-        padding: 1rem 1.5rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        animation: slideDown 0.3s ease-out;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'slideUp 0.3s ease-out';
-        setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 300);
-    }, 3000);
 }
 
 // Show notification
@@ -419,31 +453,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update progress bar
     updateProgressBar();
     
-    // Add click handlers for exercise items
-    const exerciseItems = document.querySelectorAll('.exercise-item');
-    exerciseItems.forEach(item => {
-        item.addEventListener('click', function() {
-            const exerciseName = this.querySelector('h4').textContent.toLowerCase();
-            if (exerciseName.includes('morning stretches')) {
-                startExercise('morning-stretches');
-            } else if (exerciseName.includes('upper body')) {
-                startExercise('upper-body');
-            } else if (exerciseName.includes('lower body')) {
-                startExercise('lower-body');
-            } else if (exerciseName.includes('cool down')) {
-                startExercise('cool-down');
-            }
+    // Add click handlers for category start buttons
+    const categoryStartButtons = document.querySelectorAll('.category-start-btn');
+    categoryStartButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const categoryName = this.getAttribute('data-category');
+            startCategoryExercises(categoryName);
         });
     });
     
     // Add animations
     const style = document.createElement('style');
     style.textContent = `
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
         @keyframes slideDown {
             from {
                 opacity: 0;
@@ -465,51 +486,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 transform: translateX(-50%) translateY(-20px);
             }
         }
-        
-        .exercise-modal .modal-content {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            max-width: 90%;
-            width: 400px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        .exercise-timer {
-            text-align: center;
-            margin-top: 1rem;
-        }
-        
-        .timer-display {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #374151;
-            margin-bottom: 1rem;
-        }
-        
-        .timer-controls {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-        
-        .timer-btn {
-            width: 3rem;
-            height: 3rem;
-            border: none;
-            border-radius: 50%;
-            background: linear-gradient(to bottom right, #fef3c7, #fdba74);
-            color: #92400e;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        
-        .timer-btn:hover {
-            transform: scale(1.1);
-        }
     `;
     document.head.appendChild(style);
     
@@ -519,7 +495,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // Export functions for potential use
 window.dailyPlansFunctions = {
     startExercise,
-    completeExercise,
+    startCategoryExercises,
+    startAllExercises,
+    switchCategory,
     updateCurrentDate,
     showNotification
 }; 
