@@ -57,11 +57,11 @@ function updateCurrentDate() {
         const dayDate = item.querySelector('.day-date');
         if (dayDate) {
             const day = new Date();
-            day.setDate(day.getDate() + index);
+            day.setDate(day.getDate() + index -2);
             dayDate.textContent = day.getDate().toString().padStart(2, '0');
             
             // Mark today as active
-            if (index === 0) {
+            if (index === 2) {
                 dayDate.classList.add('active');
             } else {
                 dayDate.classList.remove('active');

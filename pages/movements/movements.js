@@ -231,11 +231,13 @@ function showExerciseDetails(category) {
                             <div class="exercise-info">
                                 <h5>${exercise.name}</h5>
                                 <p>${exercise.sets} sets × ${exercise.reps} reps</p>
-                                <span class="difficulty ${exercise.difficulty.toLowerCase()}">${exercise.difficulty}</span>
+                                <div class="exercise-info-row">
+                                    <span class="difficulty ${exercise.difficulty.toLowerCase()}">${exercise.difficulty}</span>
+                                    <button class="start-exercise-btn" onclick="startExercise('${category}', '${exercise.name}')">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <button class="start-exercise-btn" onclick="startExercise('${category}', '${exercise.name}')">
-                                <i class="fas fa-play"></i>
-                            </button>
                         </div>
                     `).join('')}
                 </div>
@@ -244,20 +246,35 @@ function showExerciseDetails(category) {
     `;
     
     modal.style.cssText = `
-        position: fixed;
+        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: #ffffff;
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 1000;
         animation: fadeIn 0.3s ease-out;
+        cursor: pointer;
+        overflow-y: auto;
     `;
     
-    document.body.appendChild(modal);
+    // Add click event to close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeExerciseModal();
+        }
+    });
+    
+    // Append to app container instead of body
+    const appContainer = document.querySelector('.app-container');
+    if (appContainer) {
+        appContainer.appendChild(modal);
+    } else {
+        document.body.appendChild(modal);
+    }
 }
 
 // Close exercise modal
@@ -370,6 +387,8 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
+
+
 // Initialize movements page
 document.addEventListener('DOMContentLoaded', function() {
     // Set up search placeholder
@@ -410,13 +429,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         .exercise-modal .modal-content {
             background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            max-width: 90%;
-            width: 400px;
-            max-height: 80vh;
+            border-radius: 0;
+            padding: 2rem;
+            max-width: 100%;
+            width: 100%;
+            max-height: 100vh;
+            height: 100%;
             overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
         }
         
         .exercise-description {
@@ -433,21 +455,24 @@ document.addEventListener('DOMContentLoaded', function() {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.75rem;
+            padding: 1.5rem;
             border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            margin-bottom: 0.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            background: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
-        .exercise-info h5 {
-            margin: 0 0 0.25rem 0;
+                .exercise-info h5 {
+            margin: 0 0 0.5rem 0;
             color: #374151;
+            font-size: 1.25rem;
         }
-        
+
         .exercise-info p {
-            margin: 0 0 0.25rem 0;
+            margin: 0 0 0.5rem 0;
             color: #6b7280;
-            font-size: 0.875rem;
+            font-size: 1rem;
         }
         
         .difficulty {
@@ -473,8 +498,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .start-exercise-btn {
-            width: 2.5rem;
-            height: 2.5rem;
+            width: 3rem;
+            height: 3rem;
             border: none;
             border-radius: 50%;
             background: linear-gradient(to bottom right, #fef3c7, #fdba74);
@@ -484,6 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            font-size: 1.25rem;
         }
         
         .start-exercise-btn:hover {

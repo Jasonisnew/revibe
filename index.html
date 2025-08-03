@@ -37,7 +37,12 @@
             </div>
         </div>
 
-
+        <!-- Conversation Bubble -->
+        <div class="conversation-bubble">
+            <div class="bubble-content">
+                Take care of your knees!
+            </div>
+        </div>
 
         <!-- Character Video and Progress -->
         <div class="progress-section">
@@ -64,7 +69,7 @@
         </div>
 
         <!-- Daily Plans -->
-        <div class="daily-plans">
+        <div class="daily-plans" onclick="navigateTo('/daily-plans')" style="cursor: pointer;">
             <h2 id="daily-plans-title">Daily Plans</h2>
 
             <!-- Calendar -->
@@ -72,7 +77,7 @@
                 <div class="week-days">
                     <div class="day-item">
                         <div class="day-name" id="day-1">WED</div>
-                        <div class="day-date active">01</div>
+                        <div class="day-date">01</div>
                     </div>
                     <div class="day-item">
                         <div class="day-name" id="day-2">Thu</div>
@@ -129,7 +134,7 @@
             <div class="action-cards">
                 <div class="card workout-card" onclick="navigateTo('/movements')">
                     <div class="card-content">
-                        <div class="card-subtitle" id="workout-text">Find A Suitable Workout</div>
+                        <div class="card-subtitle" id="workout-text">Find A Suitable Recovery Workout</div>
                         <div class="card-icon workout-icon">
                             <i class="fas fa-bolt"></i>
                         </div>

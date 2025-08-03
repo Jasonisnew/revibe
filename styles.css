@@ -199,6 +199,38 @@ body {
     color: #6b7280;
 }
 
+/* Conversation Bubble */
+.conversation-bubble {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.bubble-content {
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    color: #92400e;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    max-width: 80%;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(253, 186, 116, 0.2);
+}
+
+.bubble-content::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #fdba74;
+}
+
 /* Daily Plans */
 .daily-plans {
     padding: 0 1rem;
@@ -342,13 +374,16 @@ body {
     max-width: 375px;
     background-color: #ffffff;
     border-top: 1px solid #e5e7eb;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px 15px 0 0;
 }
 
 .nav-items {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    padding: 0.75rem 0;
+    padding: 0.5rem 0;
 }
 
 .nav-icon {
