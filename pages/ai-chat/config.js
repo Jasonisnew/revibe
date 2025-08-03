@@ -1,9 +1,9 @@
 // AI Chat Configuration
 const CONFIG = {
     // OpenAI API Configuration
-    OPENAI_API_KEY: process.env.OPENAI_API_KEY || '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', // Load from environment variable
-    OPENAI_API_URL: process.env.OPENAI_API_URL || 'https://api.openai.com/v1/chat/completions',
-    OPENAI_MODEL: process.env.OPENAI_MODEL || 'gpt-3.5-turbo', // or 'gpt-4' for better responses
+    OPENAI_API_KEY: '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', // Add your OpenAI API key here
+    OPENAI_API_URL: 'https://api.openai.com/v1/chat/completions',
+    OPENAI_MODEL: 'gpt-3.5-turbo', // or 'gpt-4' for better responses
     
     // Chat Configuration
     MAX_MESSAGES: 50, // Maximum messages to keep in conversation
