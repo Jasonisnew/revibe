@@ -113,7 +113,7 @@
 }
 
 .view-btn.active {
-    background-color: #ffffff;
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
     color: #374151;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -314,6 +314,252 @@ body:has(.back-view.visible) .front-view {
     transform: rotate(-10deg);
 }
 
+/* Body Part Labels */
+.part-label {
+    position: absolute;
+    background: rgba(255, 182, 193, 0.9);
+    color: #333;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 1;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+/* Front view label positions */
+.front-view .shoulder-left .part-label {
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    margin-right: 2rem;
+}
+
+
+
+.front-view .shoulder-right .part-label {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    margin-left: 2rem;
+}
+
+
+
+.front-view .arm-left .part-label {
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%) rotate(-30deg); 
+    margin-right: 2rem;
+}
+
+
+
+.front-view .arm-right .part-label {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) rotate(30deg);
+    margin-left: 2rem;
+}
+
+
+
+.front-view .chest .part-label {
+    bottom: 100%;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    margin-bottom: 2rem;
+}
+
+
+
+.front-view .quadriceps-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */
+    margin-right: 2rem;
+}
+
+
+
+.front-view .quadriceps-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 2rem;
+}
+
+
+
+/* Back view label positions */
+.back-view .shoulder-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */
+    margin-right: 2rem;
+}
+
+
+
+.back-view .shoulder-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 2rem;
+}
+
+
+
+.back-view .arm-left .part-label {
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%) rotate(-15deg);
+    margin-right: 2rem;
+}
+
+
+
+.back-view .arm-right .part-label {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) rotate(15deg);
+    margin-left: 2rem;
+}
+
+
+
+.back-view .back .part-label {
+    bottom: 100%;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    margin-bottom: 2rem;
+}
+
+
+
+.back-view .hamstrings-left .part-label {
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%) rotate(-10deg);
+    margin-right: 2rem;
+}
+
+
+
+.back-view .hamstrings-right .part-label {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%) rotate(10deg);
+    margin-left: 2rem;
+}
+
+
+
+/* Front view label positions */
+.front-view .shoulder-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */
+    margin-right: 0.5rem;
+}
+
+.front-view .shoulder-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 0.5rem;
+}
+
+.front-view .arm-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */
+    margin-right: 0.5rem;
+}
+
+.front-view .arm-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 0.5rem;
+}
+
+.front-view .chest .part-label {
+    bottom: 100%;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    margin-bottom: 0.5rem;
+}
+
+.front-view .quadriceps-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */
+    margin-right: 0.5rem;
+}
+
+.front-view .quadriceps-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 0.5rem;
+}
+
+/* Back view label positions */
+.back-view .shoulder-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */
+    margin-right: 0.5rem;
+}
+
+.back-view .shoulder-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 0.5rem;
+}
+
+.back-view .arm-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */ 
+    margin-right: 0.5rem;
+}
+
+.back-view .arm-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 0.5rem;
+}
+
+.back-view .back .part-label {
+    bottom: 100%;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    margin-bottom: 0.5rem;
+}
+
+.back-view .hamstrings-left .part-label {
+    top: 50%;
+    right: 100%;
+    /* transform: translateY(-50%); */
+    margin-right: 0.5rem;
+}
+
+.back-view .hamstrings-right .part-label {
+    top: 50%;
+    left: 100%;
+    /* transform: translateY(-50%); */
+    margin-left: 0.5rem;
+}
+
 /* Movement Categories */
 .movement-categories {
     padding: 0 1rem;
@@ -511,4 +757,6 @@ body:has(.back-view.visible) .front-view {
     .category-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+
 } 

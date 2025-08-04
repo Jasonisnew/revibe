@@ -182,9 +182,6 @@ function selectCategory(category) {
     
     // Highlight corresponding body parts
     highlightBodyParts(category);
-    
-    // Show exercise details
-    showExerciseDetails(category);
 }
 
 function highlightBodyParts(category) {
@@ -381,6 +378,8 @@ function updateCategorySelection(partType) {
     }
 }
 
+
+
 // Show notification
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
@@ -440,6 +439,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize with front view
     setView('front');
+    
+    // Add click event listeners to body parts
+    bodyParts.forEach(part => {
+        part.addEventListener('click', function() {
+            const partType = this.dataset.part;
+            
+            // Remove active class from all body parts
+            bodyParts.forEach(p => p.classList.remove('active'));
+            
+            // Add active class to clicked part
+            this.classList.add('active');
+            
+            // Select category
+            selectCategory(partType);
+        });
+    });
     
     // Add animations
     const style = document.createElement('style');
