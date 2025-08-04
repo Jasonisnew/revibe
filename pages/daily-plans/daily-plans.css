@@ -3,21 +3,13 @@
 /* Header modifications for daily plans page */
 .header-content {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding: 0 1rem;
     position: relative;
 }
 
-.header-content::after {
-    content: '';
-    position: absolute;
-    bottom: -0.5rem;
-    left: 1rem;
-    right: 1rem;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #e5e7eb, transparent);
-}
+
 
 .header-content h1 {
     font-size: 1.25rem;
