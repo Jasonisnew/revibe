@@ -1,120 +1,235 @@
-/* Camera page specific styles */
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* Camera Container */
-.camera-container {
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #000;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    /* Prevent zoom on iOS */
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Camera-specific styles for Fitness Rehab App */
+/* These styles work with the main styles.css */
+
+/* Camera Preview - Full screen within app container */
+.camera-preview {
+    position: fixed;
+    top: var(--status-bar-height);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 375px;
+    height: calc(100vh - var(--status-bar-height) + 1500px); /* Even more overshoot to stretch camera further */
+    background: #000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+#canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important; /* Force fill to stretch the image */
+    z-index: 1; /* Camera feed at base level */
+}
+
+/* Enhanced Prediction Results - Centered and Minimal */
+.prediction-results {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 140, 100, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 16px 24px;
+    z-index: 15; /* Above skeleton tracking */
+    display: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    min-width: 120px;
+}
+
+.prediction-results.show {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.prediction-results div {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.prediction-results div:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 375px) {
+    .camera-preview {
+        max-width: 100%;
+        left: 0;
+        transform: none;
+    }
+    
+    .camera-back-button {
+        left: 20px;
+        transform: none;
+        margin-left: 0;
+    }
+    
+    .prediction-results {
+        padding: 12px 20px;
+        min-width: 100px;
+    }
+    
+    .prediction-results div {
+        font-size: 14px;
+    }
+}
+
+/* Back Button - Fixed position at top left */
+.camera-back-button {
+    position: fixed;
+    top: calc(var(--status-bar-height) + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background-color 0.2s ease;
+    margin-left: -150px; /* Position to the left of center */
+}
+
+.camera-back-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.camera-back-button i {
+    color: #ffffff;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Navigation spacer for centered camera button */
+.nav-spacer {
+    flex: 1;
+}
+
+/* Exercise Labels Container */
+.exercise-labels {
+    text-align: center;
+    padding: 20px 0 10px 0;
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-color: #000000;
-    min-height: calc(100vh - 120px);
+    justify-content: center;
+    align-items: center;
 }
 
-/* Camera View */
-.camera-view {
-    flex: 1;
+/* Exercise Text */
+.exercise-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #374151;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin-bottom: 5px;
+}
+
+/* Class Text */
+.class-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6b7280;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Exercise Number */
+.exercise-number {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #9ca3af;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin-top: 5px;
+}
+
+/* Exercise Navigation Button */
+.exercise-nav-button {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #6b7280;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1f2937;
-    position: relative;
-    overflow: hidden;
-}
-
-.camera-view video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.camera-placeholder {
-    text-align: center;
-    color: #ffffff;
-}
-
-.camera-placeholder i {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    opacity: 0.7;
-}
-
-.camera-placeholder p {
-    font-size: 1.125rem;
-    opacity: 0.8;
-}
-
-/* Camera Controls */
-.camera-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 1rem;
-    background-color: #000000;
-}
-
-.right-controls {
-    display: flex;
-    gap: 1rem;
-}
-
-.control-btn {
-    width: 3rem;
-    height: 3rem;
-    border: none;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
     cursor: pointer;
+    margin: 0 1.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.exercise-nav-button:hover {
+    background-color: #4b5563;
+}
+
+.exercise-nav-button i {
+    color: #ffffff;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
 }
 
-.control-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-.control-btn i {
-    font-size: 1.25rem;
-}
-
-/* Capture Button */
-.capture-btn {
-    width: 4rem;
-    height: 4rem;
-    border: none;
-    border-radius: 50%;
-    background-color: #ffffff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.capture-btn:hover {
-    transform: scale(1.05);
-}
-
-.capture-btn:active {
-    transform: scale(0.95);
-}
-
-.capture-circle {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background-color: #ffffff;
-    border: 3px solid #000000;
-}
-
-/* Responsive adjustments */
-@media (max-width: 375px) {
-    .camera-container {
-        min-height: calc(100vh - 100px);
+/* Mobile-specific optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .camera-preview {
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        user-select: none;
     }
-    
-    .camera-controls {
-        padding: 1.5rem 1rem;
-    }
-} 
+}
+

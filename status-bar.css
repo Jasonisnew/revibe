@@ -1,0 +1,193 @@
+/* iOS Status Bar CSS Variables */
+:root {
+  --status-bar-bg: rgba(255, 255, 255, 0.9);
+  --status-bar-text: #000000;
+  --status-bar-icon: #000000;
+  --status-bar-height: 24px;
+  --status-bar-font: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Dark mode variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --status-bar-bg: rgba(0, 0, 0, 0.9);
+    --status-bar-text: #ffffff;
+    --status-bar-icon: #ffffff;
+  }
+}
+
+/* iOS Status Bar Container */
+.ios-status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--status-bar-height);
+  background: var(--status-bar-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+}
+
+/* Status Bar Content */
+.status-bar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 0 16px;
+  font-family: var(--status-bar-font);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--status-bar-text);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Time Display */
+.time-display {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Status Indicators Container */
+.status-indicators {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Signal Bars */
+.signal-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 8px;
+}
+
+.signal-bar {
+  width: 2px;
+  background-color: var(--status-bar-icon);
+  border-radius: 1px;
+  transition: opacity 0.2s ease;
+}
+
+/* WiFi Icon */
+.wifi-icon {
+  width: 16px;
+  height: 12px;
+  color: var(--status-bar-icon);
+  margin-left: 4px;
+}
+
+/* Battery Container */
+.battery-container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 4px;
+  position: relative;
+}
+
+/* Battery Outline */
+.battery-outline {
+  width: 26px;
+  height: 12px;
+  border: 1px solid var(--status-bar-icon);
+  border-radius: 2px;
+  position: relative;
+  background: transparent;
+}
+
+.battery-outline::after {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: 3px;
+  width: 2px;
+  height: 6px;
+  background: var(--status-bar-icon);
+  border-radius: 0 1px 1px 0;
+}
+
+/* Battery Fill */
+.battery-fill {
+  height: 100%;
+  background: var(--status-bar-icon);
+  border-radius: 1px;
+  transition: width 0.3s ease;
+  min-width: 2px;
+}
+
+.battery-fill.charging {
+  background: #34c759;
+}
+
+/* Charging Icon */
+.charging-icon {
+  width: 12px;
+  height: 12px;
+  color: #34c759;
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 375px) {
+  .status-bar-content {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+  
+  .battery-outline {
+    width: 24px;
+    height: 11px;
+  }
+  
+  .wifi-icon {
+    width: 15px;
+    height: 11px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .ios-status-bar {
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .ios-status-bar {
+      border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .battery-fill,
+  .charging-icon {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.ios-status-bar:focus-within {
+  outline: 2px solid #007aff;
+  outline-offset: -2px;
+} 

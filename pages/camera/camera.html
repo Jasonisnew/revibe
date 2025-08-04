@@ -10,64 +10,56 @@
 </head>
 <body>
     <div class="app-container">
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <span class="time">9:41</span>
-            <div class="status-indicators">
-                <div class="signal-bars">
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                    <div class="bar"></div>
-                </div>
-                <span class="status-icons">📶 📶 🔋</span>
-            </div>
+        <!-- Status Bar will be created by iOS Status Bar script -->
+
+        <!-- Back Button - Fixed position at top left -->
+        <div class="camera-back-button" onclick="navigateTo('/daily-plans')">
+            <i class="fas fa-arrow-left"></i>
         </div>
 
-        <!-- Camera View -->
-        <div class="camera-container">
-            <div class="camera-view">
-                <div class="camera-placeholder">
-                    <i class="fas fa-camera"></i>
-                    <p>Camera View</p>
-                </div>
-            </div>
+        <!-- Camera Preview -->
+        <div class="camera-preview">
+            <canvas id="canvas"></canvas>
             
-            <!-- Camera Controls -->
-            <div class="camera-controls">
-                <button class="control-btn" onclick="navigateTo('/')">
-                    <i class="fas fa-times"></i>
-                </button>
-                <button class="capture-btn" onclick="capturePhoto()">
-                    <div class="capture-circle"></div>
-                </button>
-                <div class="right-controls">
-                    <button class="control-btn" onclick="switchCamera()">
-                        <i class="fas fa-sync-alt"></i>
-                    </button>
-                    <button class="control-btn" onclick="toggleFlash()">
-                        <i class="fas fa-bolt"></i>
-                    </button>
-                </div>
-            </div>
+            <!-- Exercise Text -->
+            <div class="exercise-text">Class 1</div>
+            <div class="class-text">Class 2</div>
+            
+            <!-- Prediction Results -->
+            <div class="prediction-results" id="label-container"></div>
         </div>
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
+            <!-- Exercise Labels -->
+            <div class="exercise-labels">
+                <div class="exercise-text" id="class1-label">Incorrect</div>
+                <div class="class-text" id="class2-label">Correct</div>
+                <div class="exercise-number" id="exercise-label">Exercise 1</div>
+            </div>
+            
             <div class="nav-items">
-                <i class="fas fa-home nav-icon" onclick="navigateTo('/')"></i>
-                <i class="fas fa-bolt nav-icon" onclick="navigateTo('/movements')"></i>
-                <div class="camera-button active">
+                <div class="nav-spacer"></div>
+                <div class="exercise-nav-button" onclick="switchToPreviousExercise()">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="camera-button active" onclick="navigateTo('/camera')">
                     <i class="fas fa-play"></i>
                 </div>
-                <i class="fas fa-calendar nav-icon" onclick="navigateTo('/daily-plans')"></i>
-                <i class="fas fa-user nav-icon" onclick="navigateTo('/ai-chat')"></i>
+                <div class="exercise-nav-button" onclick="switchToNextExercise()">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div class="nav-spacer"></div>
             </div>
             <div class="nav-indicator"></div>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="../../ios-status-bar.js"></script>
     <script src="../../script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/pose@0.8/dist/teachablemachine-pose.min.js"></script>
     <script src="camera.js"></script>
 </body>
-</html> 
+</html>
