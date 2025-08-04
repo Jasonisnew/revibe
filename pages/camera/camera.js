@@ -1,366 +1,397 @@
-// Camera page specific JavaScript
+// Camera app functionality for Fitness Rehab App
+const URL = "../../assets/model2/";
+let model, webcam, ctx, labelContainer, maxPredictions;
+let isInitialized = false;
+let currentMode = 'pose'; // Default to pose mode since we removed mode buttons
+let lastPrediction = null;
+let predictionUpdateTimer = null;
+let currentExerciseIndex = 0; // Track current exercise
 
-// Camera state
-let flashEnabled = false;
-let stream = null;
-let videoElement = null;
-let canvasElement = null;
-let isCameraActive = false;
-let capturedPhotos = [];
+// DOM elements
+let canvas, statusTime, predictionResults;
 
-// Initialize camera when page loads
+// Initialize the camera app
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Camera page loaded');
-    loadCapturedPhotos();
-    setupCameraControls();
-    initializeCamera();
+    initializeElements();
+    updateStatusTime();
+    setInterval(updateStatusTime, 1000);
+    
+    // Auto-initialize camera
+    init();
+    
+    // Handle orientation changes
+    window.addEventListener('orientationchange', handleOrientationChange);
+    window.addEventListener('resize', handleResize);
 });
 
-// Clean up camera when page is unloaded
-window.addEventListener('beforeunload', function() {
-    cleanupCamera();
-});
-
-// Initialize camera functionality
-async function initializeCamera() {
-    try {
-        // Request camera permissions
-        stream = await navigator.mediaDevices.getUserMedia({
-            video: {
-                facingMode: 'environment', // Use back camera if available
-                width: { ideal: 1920 },
-                height: { ideal: 1080 }
-            },
-            audio: false
-        });
-        
-        // Create video element if it doesn't exist
-        if (!videoElement) {
-            videoElement = document.createElement('video');
-            videoElement.autoplay = true;
-            videoElement.playsInline = true;
-            videoElement.muted = true;
-            videoElement.style.width = '100%';
-            videoElement.style.height = '100%';
-            videoElement.style.objectFit = 'cover';
-        }
-        
-        // Create canvas element for photo capture
-        if (!canvasElement) {
-            canvasElement = document.createElement('canvas');
-            canvasElement.style.display = 'none';
-            document.body.appendChild(canvasElement);
-        }
-        
-        // Set video source
-        videoElement.srcObject = stream;
-        
-        // Replace placeholder with video
-        const cameraView = document.querySelector('.camera-view');
-        const placeholder = document.querySelector('.camera-placeholder');
-        
-        if (placeholder) {
-            placeholder.style.display = 'none';
-        }
-        
-        cameraView.appendChild(videoElement);
-        isCameraActive = true;
-        
-        console.log('Camera initialized successfully');
-        showNotification('Camera ready!', 'success');
-        
-    } catch (error) {
-        console.error('Error accessing camera:', error);
-        showCameraError();
-    }
+function initializeElements() {
+    canvas = document.getElementById("canvas");
+    statusTime = document.getElementById("statusTime");
+    predictionResults = document.getElementById("label-container");
 }
 
-// Capture photo function
-function capturePhoto() {
-    if (!isCameraActive || !videoElement || !canvasElement) {
-        console.log('Camera not ready');
-        showNotification('Camera not ready yet. Please wait...', 'warning');
-        return;
-    }
-    
-    try {
-        // Set canvas dimensions to match video
-        canvasElement.width = videoElement.videoWidth;
-        canvasElement.height = videoElement.videoHeight;
-        
-        // Draw video frame to canvas
-        const context = canvasElement.getContext('2d');
-        context.drawImage(videoElement, 0, 0);
-        
-        // Convert to blob and download
-        canvasElement.toBlob(function(blob) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `photo_${Date.now()}.jpg`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }, 'image/jpeg', 0.8);
-        
-        // Show feedback
-        const captureBtn = document.querySelector('.capture-btn');
-        captureBtn.style.transform = 'scale(0.9)';
-        
-        setTimeout(() => {
-            captureBtn.style.transform = 'scale(1)';
-        }, 150);
-        
-        // Show capture feedback
-        showCaptureFeedback();
-        
-        // Add to captured photos
-        const photoData = {
-            id: Date.now(),
-            timestamp: new Date().toISOString(),
-            flashUsed: flashEnabled
-        };
-        capturedPhotos.push(photoData);
-        saveCapturedPhotos();
-        
-        console.log('Photo captured successfully');
-        showNotification('Photo captured successfully!', 'success');
-        
-    } catch (error) {
-        console.error('Error capturing photo:', error);
-    }
-}
-
-// Toggle flash function
-function toggleFlash() {
-    flashEnabled = !flashEnabled;
-    const flashBtn = document.querySelector('.control-btn:last-child i');
-    
-    if (flashEnabled) {
-        flashBtn.style.color = '#fbbf24';
-        flashBtn.style.textShadow = '0 0 10px #fbbf24';
-        // Note: Flash control requires additional permissions and may not work on all devices
-        console.log('Flash: ON (Note: May not work on all devices)');
-        showNotification('Flash enabled', 'info');
-    } else {
-        flashBtn.style.color = '#ffffff';
-        flashBtn.style.textShadow = 'none';
-        console.log('Flash: OFF');
-        showNotification('Flash disabled', 'info');
-    }
-}
-
-// Show capture feedback
-function showCaptureFeedback() {
-    // Create a flash effect
-    const flash = document.createElement('div');
-    flash.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.8);
-        z-index: 9999;
-        pointer-events: none;
-        transition: opacity 0.3s ease-out;
-    `;
-    
-    document.body.appendChild(flash);
-    
-    // Remove flash after animation
+// Handle orientation changes
+function handleOrientationChange() {
     setTimeout(() => {
-        flash.style.opacity = '0';
-        setTimeout(() => {
-            if (document.body.contains(flash)) {
-                document.body.removeChild(flash);
-            }
-        }, 300);
+        if (isInitialized && webcam) {
+            updateCanvasSize();
+        }
     }, 100);
 }
 
-// Show camera error
-function showCameraError() {
-    const cameraView = document.querySelector('.camera-view');
-    const placeholder = document.querySelector('.camera-placeholder');
+// Handle window resize
+function handleResize() {
+    if (isInitialized && webcam) {
+        updateCanvasSize();
+    }
+}
+
+// Update canvas size for proper fit
+function updateCanvasSize() {
+    // Use container dimensions instead of full viewport
+    const container = document.querySelector('.camera-preview');
+    const rect = container.getBoundingClientRect();
     
-    if (placeholder) {
-        placeholder.innerHTML = `
-            <i class="fas fa-exclamation-triangle"></i>
-            <p>Camera access denied</p>
-            <p style="font-size: 0.875rem; opacity: 0.6;">Please allow camera permissions to use this feature</p>
+    canvas.width = rect.width;
+    canvas.height = rect.height;
+    
+    // Update webcam if it exists
+    if (webcam) {
+        webcam.width = rect.width;
+        webcam.height = rect.height;
+    }
+}
+
+// Update status bar time
+function updateStatusTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+    });
+    if (statusTime) {
+        statusTime.textContent = timeString;
+    }
+}
+
+// Enhanced prediction display - Stable and Centered
+function updatePredictionDisplay(predictions) {
+    if (!predictionResults) return;
+    
+    // Sort predictions by probability (highest first)
+    const sortedPredictions = predictions.sort((a, b) => b.probability - a.probability);
+    const topPrediction = sortedPredictions[0];
+    
+    // Debug: Log all predictions to see what the new model is detecting
+    console.log('All predictions:', predictions.map(p => `${p.className}: ${Math.round(p.probability * 100)}%`));
+    
+    // Only update if the prediction has changed significantly or after a delay
+    if (shouldUpdatePrediction(topPrediction)) {
+        // Clear existing predictions
+        predictionResults.innerHTML = '';
+        
+        // Create simple, stable display
+        const predictionDiv = document.createElement('div');
+        predictionDiv.className = 'prediction-item';
+        
+        const className = topPrediction.className;
+        const percentage = Math.round(topPrediction.probability * 100);
+        
+        // Simple centered display
+        predictionDiv.innerHTML = `
+            <div style="font-size: 18px; font-weight: 700; margin-bottom: 4px;">${className}</div>
+            <div style="font-size: 14px; opacity: 0.9;">${percentage}% confidence</div>
         `;
-        placeholder.style.display = 'block';
-    }
-}
-
-// Switch camera (front/back)
-function switchCamera() {
-    if (!isCameraActive) return;
-    
-    // Stop current stream
-    if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-    }
-    
-    // Reinitialize with different facing mode
-    initializeCamera();
-}
-
-// Clean up camera when leaving page
-function cleanupCamera() {
-    if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-    }
-    isCameraActive = false;
-}
-
-// Create notification
-function createNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `camera-notification ${type}`;
-    notification.textContent = message;
-    
-    // Style based on type
-    const styles = {
-        success: {
-            background: 'linear-gradient(to right, #bbf7d0, #86efac)',
-            color: '#166534',
-            border: '1px solid #22c55e'
-        },
-        warning: {
-            background: 'linear-gradient(to right, #fef3c7, #fdba74)',
-            color: '#92400e',
-            border: '1px solid #f59e0b'
-        },
-        info: {
-            background: 'linear-gradient(to right, #dbeafe, #93c5fd)',
-            color: '#1e40af',
-            border: '1px solid #3b82f6'
+        
+        predictionResults.appendChild(predictionDiv);
+        
+        // Make sure the prediction results are visible
+        predictionResults.classList.add('show');
+        
+        // Update navigation bar labels based on prediction
+        updateNavigationLabels(className, percentage);
+        
+        // Store the current prediction
+        lastPrediction = {
+            className: className,
+            probability: topPrediction.probability,
+            timestamp: Date.now()
+        };
+        
+        // Set a timer to prevent rapid updates
+        if (predictionUpdateTimer) {
+            clearTimeout(predictionUpdateTimer);
         }
-    };
-    
-    const style = styles[type] || styles.info;
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-        animation: slideDown 0.3s ease-out;
-        font-size: 0.875rem;
-        font-weight: 500;
-        background: ${style.background};
-        color: ${style.color};
-        border: ${style.border};
-    `;
-    
-    return notification;
+        predictionUpdateTimer = setTimeout(() => {
+            predictionUpdateTimer = null;
+        }, 500); // 500ms cooldown
+    }
 }
 
-// Show notification
-function showNotification(message, type = 'info') {
-    const notification = createNotification(message, type);
-    document.body.appendChild(notification);
+// Check if we should update the prediction display
+function shouldUpdatePrediction(newPrediction) {
+    if (!lastPrediction) return true;
+    
+    const timeDiff = Date.now() - lastPrediction.timestamp;
+    const probDiff = Math.abs(newPrediction.probability - lastPrediction.probability);
+    const classChanged = newPrediction.className !== lastPrediction.className;
+    
+    // Update if:
+    // 1. Class has changed
+    // 2. Probability changed significantly (>10%) and enough time has passed
+    // 3. No recent updates (500ms cooldown)
+    return classChanged || (probDiff > 0.1 && timeDiff > 500) || timeDiff > 1000;
+}
+
+// Teachable Machine Pose Model Integration
+async function init() {
+    try {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // Load the model and metadata
+        model = await tmPose.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Get container dimensions for proper sizing
+        const container = document.querySelector('.camera-preview');
+        const rect = container.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+
+        // Setup webcam with container dimensions
+        const flip = true;
+        webcam = new tmPose.Webcam(width, height, flip);
+        await webcam.setup();
+        await webcam.play();
+        
+        // Setup canvas with container dimensions
+        canvas.width = width;
+        canvas.height = height;
+        ctx = canvas.getContext("2d");
+        
+        // Setup prediction results
+        labelContainer = document.getElementById("label-container");
+        
+        isInitialized = true;
+        window.requestAnimationFrame(loop);
+        
+        console.log('Camera initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize camera:', error);
+        showErrorMessage('Camera initialization failed. Please check permissions.');
+    }
+}
+
+async function loop(timestamp) {
+    if (webcam && isInitialized) {
+        webcam.update();
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+}
+
+async function predict() {
+    if (!model || !webcam) return;
+    
+    try {
+        // Run pose detection and show predictions (always on since we removed mode buttons)
+        const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
+        const prediction = await model.predict(posenetOutput);
+
+        // Update prediction display
+        updatePredictionDisplay(prediction);
+
+        // Draw everything in the correct order
+        drawPose(pose);
+    } catch (error) {
+        console.error('Prediction error:', error);
+    }
+}
+
+function drawPose(pose) {
+    if (webcam.canvas && ctx) {
+        // Clear the canvas first
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Simply stretch the camera feed to fill the entire canvas
+        // This will eliminate black space but may distort the image slightly
+        ctx.drawImage(webcam.canvas, 0, 0, canvas.width, canvas.height);
+        
+        // Draw pose keypoints and skeleton on top if pose data exists
+        if (pose && pose.keypoints && pose.keypoints.length > 0) {
+            const minPartConfidence = 0.1; // Lower threshold to show more tracking
+            
+            // Ensure skeleton draws on top by using proper context settings
+            ctx.save();
+            
+            // Set drawing properties for better visibility - BRIGHT BLUE SKELETON
+            ctx.lineWidth = 6; // Very thick lines for maximum visibility
+            ctx.strokeStyle = '#0066ff'; // BLUE for skeleton lines
+            ctx.fillStyle = '#00ffff';   // Cyan for keypoints
+            
+            // Draw keypoints and skeleton with enhanced visibility
+            tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+            tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
+            
+            ctx.restore();
+            
+            // Debug: Log pose detection
+            console.log('Pose detected with', pose.keypoints.length, 'keypoints');
+        } else {
+            console.log('No pose detected - drawing test circle');
+            // Draw a test circle to see if canvas is working
+            ctx.save();
+            ctx.fillStyle = '#ff0000';
+            ctx.beginPath();
+            ctx.arc(canvas.width/2, canvas.height/2, 20, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+}
+
+// Error handling
+function showErrorMessage(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 59, 48, 0.9);
+        color: white;
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        z-index: 1000;
+        max-width: 300px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    `;
+    errorDiv.textContent = message;
+    document.body.appendChild(errorDiv);
     
     setTimeout(() => {
-        notification.style.animation = 'slideUp 0.3s ease-out';
-        setTimeout(() => {
-            if (document.body.contains(notification)) {
-                document.body.removeChild(notification);
-            }
-        }, 300);
+        errorDiv.remove();
     }, 3000);
 }
 
-// Save captured photos to localStorage
-function saveCapturedPhotos() {
-    localStorage.setItem('capturedPhotos', JSON.stringify(capturedPhotos));
-}
-
-// Load captured photos from localStorage
-function loadCapturedPhotos() {
-    const savedPhotos = localStorage.getItem('capturedPhotos');
-    if (savedPhotos) {
-        try {
-            capturedPhotos = JSON.parse(savedPhotos);
-        } catch (error) {
-            console.error('Error loading captured photos:', error);
-        }
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    .prediction-item {
+        transition: all 0.2s ease;
     }
-}
+`;
+document.head.appendChild(style);
 
-// Get photo count
-function getPhotoCount() {
-    return capturedPhotos.length;
-}
-
-// Clear all photos
-function clearAllPhotos() {
-    capturedPhotos = [];
-    localStorage.removeItem('capturedPhotos');
-    showNotification('All photos cleared', 'info');
-}
-
-// Add camera controls event listeners
-function setupCameraControls() {
-    // Capture button
-    const captureBtn = document.querySelector('.capture-btn');
-    if (captureBtn) {
-        captureBtn.addEventListener('click', capturePhoto);
-    }
+// Exercise switching functionality
+function switchToPreviousExercise() {
+    // Decrement exercise index (you can add more exercises later)
+    currentExerciseIndex = Math.max(0, currentExerciseIndex - 1);
     
-    // Flash button
-    const flashBtn = document.querySelector('.control-btn:last-child');
-    if (flashBtn) {
-        flashBtn.addEventListener('click', toggleFlash);
-    }
+    // Update the exercise label
+    updateExerciseLabel();
     
-    // Close button
-    const closeBtn = document.querySelector('.control-btn:first-child');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            navigateTo('/');
-        });
-    }
+    // For now, just show a notification
+    // Later you can load different models here
+    showExerciseNotification(`Switched to Exercise ${currentExerciseIndex + 1}`);
     
-    // Add camera pulse animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateX(-50%) translateY(-20px);
-            }
-        }
+    console.log(`Switched to exercise ${currentExerciseIndex + 1}`);
+}
+
+function switchToNextExercise() {
+    // Increment exercise index (you can add more exercises later)
+    currentExerciseIndex = Math.min(9, currentExerciseIndex + 1); // Limit to 10 exercises for now
+    
+    // Update the exercise label
+    updateExerciseLabel();
+    
+    // For now, just show a notification
+    // Later you can load different models here
+    showExerciseNotification(`Switched to Exercise ${currentExerciseIndex + 1}`);
+    
+    console.log(`Switched to exercise ${currentExerciseIndex + 1}`);
+}
+
+function showExerciseNotification(message) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(59, 130, 246, 0.9);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-align: center;
+        z-index: 1000;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        animation: slideDown 0.3s ease-out;
     `;
-    document.head.appendChild(style);
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 2000);
 }
 
-// Export functions for potential use
-window.cameraFunctions = {
-    capturePhoto,
-    toggleFlash,
-    switchCamera,
-    cleanupCamera,
-    getPhotoCount,
-    clearAllPhotos,
-    showNotification
-}; 
+// Add slide down animation
+const exerciseStyle = document.createElement('style');
+exerciseStyle.textContent = `
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+`;
+document.head.appendChild(exerciseStyle);
+
+// Update navigation bar labels based on camera predictions
+function updateNavigationLabels(className, percentage) {
+    const class1Label = document.getElementById('class1-label');
+    const class2Label = document.getElementById('class2-label');
+    
+    // Debug: Log what class is being detected
+    console.log('Detected class:', className, 'with percentage:', percentage + '%');
+    
+    if (class1Label && class2Label) {
+        // Handle different possible class names from the new model
+        if (className === 'Class 1' || className === 'class1' || className === 'Class1') {
+            class1Label.textContent = `Incorrect (${percentage}%)`;
+            class1Label.style.color = '#ef4444'; // Red for incorrect
+            class2Label.textContent = 'Correct';
+            class2Label.style.color = '#6b7280'; // Gray for inactive
+        } else if (className === 'Class 2' || className === 'class2' || className === 'Class2') {
+            class1Label.textContent = 'Incorrect';
+            class1Label.style.color = '#6b7280'; // Gray for inactive
+            class2Label.textContent = `Correct (${percentage}%)`;
+            class2Label.style.color = '#10b981'; // Green for correct
+        } else {
+            // For any other class names, show them dynamically
+            class1Label.textContent = `${className} (${percentage}%)`;
+            class1Label.style.color = '#10b981'; // Green for active class
+            class2Label.textContent = 'Other Classes';
+            class2Label.style.color = '#6b7280'; // Gray for inactive
+        }
+    }
+}
+
+// Update exercise label based on current exercise index
+function updateExerciseLabel() {
+    const exerciseLabel = document.getElementById('exercise-label');
+    if (exerciseLabel) {
+        exerciseLabel.textContent = `Exercise ${currentExerciseIndex + 1}`;
+    }
+}
