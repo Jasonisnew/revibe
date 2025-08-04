@@ -132,15 +132,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 200px;
+    min-height: 300px;
 }
 
 .body-outline {
     position: relative;
-    width: 150px;
-    height: 200px;
+    width: 200px;
+    height: 500px;
     background-color: #f3f4f6;
-    border-radius: 75px;
+    /* border-radius: 100px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -160,39 +160,19 @@
     background-repeat: no-repeat !important;
 }
 
-/* Completely hide front image when back view is visible */
-.back-view.visible {
-    background-image: url('../../assets/images/back.png') !important;
-}
-
-/* Remove front image from back view completely */
-.back-view.visible .front-view,
-.back-view.visible ~ .front-view,
-.back-view.visible + .front-view,
-.back-view .front-view {
-    background-image: none !important;
-    display: none !important;
-}
-
 .body-part {
     position: absolute;
     cursor: pointer;
     border-radius: 50%;
     transition: all 0.3s ease;
+    background-color: #ff8484;
     border: 2px solid transparent;
-}
-
-.body-part:hover {
-    border-color: #fdba74;
-    background-color: rgba(253, 186, 116, 0.2);
 }
 
 .body-part.active {
     border-color: #fdba74;
     background-color: rgba(253, 186, 116, 0.3);
 }
-
-
 
 /* Front view body parts */
 .front-view .shoulder-left {
@@ -259,6 +239,15 @@
     height: 30px;
 }
 
+/* Front view body parts (visible by default) */
+.front-view {
+    display: flex;
+}
+
+.front-view.visible {
+    display: flex;
+}
+
 /* Back view body parts (hidden by default) */
 .back-view {
     display: none;
@@ -266,6 +255,16 @@
 
 .back-view.visible {
     display: flex;
+}
+
+/* Hide front view when back view is visible */
+.back-view.visible ~ .front-view {
+    display: none !important;
+}
+
+/* Alternative approach - hide front view when back is visible */
+body:has(.back-view.visible) .front-view {
+    display: none !important;
 }
 
 /* Back view body parts */
@@ -333,7 +332,70 @@
     height: 30px;
 }
 
+/* Movement Categories */
+.movement-categories {
+    padding: 0 1rem;
+    margin-bottom: 5rem; /* Space for bottom nav */
+}
 
+.category-section {
+    margin-bottom: 1.5rem;
+}
+
+.category-section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.category-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.category-card:hover {
+    border-color: #fdba74;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-card.active {
+    border-color: #fdba74;
+    background-color: rgba(253, 186, 116, 0.1);
+}
+
+.category-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(to bottom right, #fef3c7, #fdba74);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.5rem;
+}
+
+.category-icon i {
+    color: #92400e;
+    font-size: 1.25rem;
+}
+
+.category-card span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
 
 /* Exercise Modal Styles */
 .exercise-modal .modal-header {
@@ -342,15 +404,14 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 1rem;
-    padding: 1rem;
 }
 
 .exercise-modal .close-btn {
     position: absolute;
-    top: 1rem;
-    left: 1rem;
-    width: 2.5rem;
-    height: 2.5rem;
+    top: 0;
+    left: 0;
+    width: 2rem;
+    height: 2rem;
     border: none;
     background: #f3f4f6;
     border-radius: 50%;
@@ -359,9 +420,8 @@
     justify-content: center;
     cursor: pointer;
     color: #6b7280;
-    font-size: 1rem;
+    font-size: 0.875rem;
     transition: all 0.2s;
-    z-index: 1001;
 }
 
 .exercise-modal .close-btn:hover {
@@ -384,21 +444,21 @@
 
 .exercise-item::after {
     content: '';
-    width: 30%;
-    height: calc(50% - 10px);
+    width: 50%;
+    height: 100%;
     background-image: url('../../assets/images/shoulder.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 0.5rem;
     position: absolute;
-    right: 20px;
-    top: calc(25% + 20px);
-    bottom: calc(25% + 20px);
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .exercise-info {
-    width: 70%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -449,8 +509,8 @@
 }
 
 .start-exercise-btn {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border: 2px solid #fdba74;
     border-radius: 50%;
     background: linear-gradient(to bottom right, #fef3c7, #fdba74);
@@ -467,67 +527,6 @@
 
 .start-exercise-btn:hover {
     transform: scale(1.1);
-}
-
-/* Movement Categories */
-.movement-categories {
-    padding: 0 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.category-section {
-    margin-bottom: 1.5rem;
-}
-
-.category-section h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #374151;
-    margin-bottom: 0.75rem;
-}
-
-.category-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-}
-
-.category-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.category-card:hover {
-    border-color: #fdba74;
-    box-shadow: 0 2px 8px rgba(253, 186, 116, 0.2);
-}
-
-.category-icon {
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fef3c7;
-    border-radius: 50%;
-    margin-bottom: 0.5rem;
-    color: #92400e;
-    font-size: 1.5rem;
-}
-
-.category-card h4 {
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: #374151;
-    text-align: center;
-    margin: 0;
 }
 
 /* Responsive adjustments */
