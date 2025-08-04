@@ -43,14 +43,14 @@ const exercises = {
 
     // Shoulders exercises
     'w-shape-stretch': {
-        name: 'W Shape Stretch',
+        name: 'Standing W',
         duration: '3 minutes',
         category: 'shoulders',
         description: '3 sets x 10 reps • Shoulder mobility',
         icon: 'fas fa-arrows-alt-h'
     },
     'y-shape-stretch': {
-        name: 'Y Shape Stretch',
+        name: 'Standing Y',
         duration: '3 minutes',
         category: 'shoulders',
         description: '3 sets x 10 reps • Shoulder flexibility',

@@ -483,6 +483,9 @@ body {
 
 .card-content {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .card-header {
@@ -515,7 +518,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0.75rem;
+    margin-top: auto;
+    align-self: flex-end;
 }
 
 .workout-icon {
@@ -524,6 +528,10 @@ body {
 
 .ai-icon {
     background: linear-gradient(to bottom right, #fef3c7, #bbf7d0);
+}
+
+.ai-card .card-subtitle {
+    font-size: 1.3rem;
 }
 
 /* Card backgrounds */

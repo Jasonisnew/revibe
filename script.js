@@ -81,6 +81,8 @@ function loadUserProgress() {
 
 // Navigation function
 function navigateTo(path) {
+    console.log('navigateTo function called with path:', path);
+    
     try {
         // Convert route paths to actual HTML files with new folder structure
         let targetFile = path;
@@ -107,10 +109,8 @@ function navigateTo(path) {
         console.log(`Navigating to: ${targetFile}`);
         console.log(`Current path: ${window.location.pathname}`);
         
-        // Add a small delay to ensure the console log is visible
-        setTimeout(() => {
-            window.location.href = targetFile;
-        }, 100);
+        // Navigate immediately
+        window.location.href = targetFile;
         
     } catch (error) {
         console.error('Navigation error:', error);
@@ -191,18 +191,7 @@ function initializeApp() {
     // Setup card effects
     setupCardEffects();
     
-    // Add click handlers for navigation
-    const navItems = document.querySelectorAll('[onclick]');
-    navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const onclick = this.getAttribute('onclick');
-            if (onclick && onclick.includes('navigateTo')) {
-                const path = onclick.match(/navigateTo\('([^']+)'\)/)[1];
-                navigateTo(path);
-            }
-        });
-    });
+
 }
 
 // Event listeners
@@ -222,4 +211,10 @@ window.appFunctions = {
     updateProgress,
     updateTime,
     updateCurrentDate
-}; 
+};
+
+// Make navigateTo globally accessible
+window.navigateTo = navigateTo;
+
+// Test function
+console.log('Script loaded, navigateTo function available:', typeof navigateTo); 
