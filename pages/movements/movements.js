@@ -19,16 +19,15 @@ const exerciseData = {
     shoulder: {
         name: 'Shoulder Exercises',
         exercises: [
-            { name: 'Shoulder Press', sets: 3, reps: 12, difficulty: 'Beginner' },
-            { name: 'Lateral Raises', sets: 3, reps: 15, difficulty: 'Beginner' },
-            { name: 'Front Raises', sets: 3, reps: 12, difficulty: 'Beginner' }
+            { name: 'Standing W', sets: 3, reps: 12, difficulty: 'Beginner' },
+            { name: 'Standing Y', sets: 3, reps: 15, difficulty: 'Beginner' }
         ],
         description: 'Strengthen and improve shoulder mobility'
     },
     arm: {
         name: 'Arm Exercises',
         exercises: [
-            { name: 'Bicep Curls', sets: 3, reps: 12, difficulty: 'Beginner' },
+            { name: 'Standing T', sets: 3, reps: 12, difficulty: 'Beginner' },
             { name: 'Tricep Dips', sets: 3, reps: 10, difficulty: 'Intermediate' },
             { name: 'Hammer Curls', sets: 3, reps: 12, difficulty: 'Beginner' }
         ],
@@ -37,7 +36,7 @@ const exerciseData = {
     chest: {
         name: 'Chest Exercises',
         exercises: [
-            { name: 'Push-ups', sets: 3, reps: 10, difficulty: 'Beginner' },
+            { name: 'Chest Opener', sets: 3, reps: 10, difficulty: 'Beginner' },
             { name: 'Chest Press', sets: 3, reps: 12, difficulty: 'Beginner' },
             { name: 'Dumbbell Flyes', sets: 3, reps: 12, difficulty: 'Intermediate' }
         ],
@@ -55,7 +54,7 @@ const exerciseData = {
     quadriceps: {
         name: 'Quadriceps Exercises',
         exercises: [
-            { name: 'Squats', sets: 3, reps: 15, difficulty: 'Beginner' },
+            { name: 'Seated Knee Extension', sets: 3, reps: 15, difficulty: 'Beginner' },
             { name: 'Lunges', sets: 3, reps: 12, difficulty: 'Intermediate' },
             { name: 'Leg Press', sets: 3, reps: 12, difficulty: 'Intermediate' }
         ],
@@ -64,7 +63,7 @@ const exerciseData = {
     hamstrings: {
         name: 'Hamstring Exercises',
         exercises: [
-            { name: 'Deadlifts', sets: 3, reps: 10, difficulty: 'Intermediate' },
+            { name: 'Mini Squat', sets: 3, reps: 10, difficulty: 'Intermediate' },
             { name: 'Leg Curls', sets: 3, reps: 12, difficulty: 'Beginner' },
             { name: 'Good Mornings', sets: 3, reps: 12, difficulty: 'Intermediate' }
         ],
@@ -226,8 +225,39 @@ function showExerciseDetails(category) {
                 <p class="exercise-description">${exerciseInfo.description}</p>
                 <div class="exercises-list">
                     <h4>Recommended Exercises:</h4>
-                    ${exerciseInfo.exercises.map(exercise => `
-                        <div class="exercise-item">
+                    ${exerciseInfo.exercises.map(exercise => {
+                        let imageUrl = '../../assets/images/shoulder-standingW.jpg'; // default for shoulder
+                        if (category === 'arm') {
+                            if (exercise.name === 'Standing T') {
+                                imageUrl = '../../assets/images/arms-standingT.jpg';
+                            } else {
+                                imageUrl = '../../assets/images/placeholder.jpg'; // placeholder for other arm exercises
+                            }
+                        } else if (category === 'shoulder') {
+                            if (exercise.name === 'Standing Y') {
+                                imageUrl = '../../assets/images/shoulder-standingY.jpg';
+                            }
+                        } else if (category === 'chest') {
+                            if (exercise.name === 'Chest Opener') {
+                                imageUrl = '../../assets/images/chest-chestopener.jpg';
+                            } else {
+                                imageUrl = '../../assets/images/placeholder.jpg'; // placeholder for other chest exercises
+                            }
+                        } else if (category === 'quadriceps') {
+                            if (exercise.name === 'Seated Knee Extension') {
+                                imageUrl = '../../assets/images/Quadriceps-seatedkneextesion.jpg';
+                            } else {
+                                imageUrl = '../../assets/images/placeholder.jpg'; // placeholder for other quadriceps exercises
+                            }
+                        } else if (category === 'hamstrings') {
+                            if (exercise.name === 'Mini Squat') {
+                                imageUrl = '../../assets/images/hamstring-minisquat.jpg';
+                            } else {
+                                imageUrl = '../../assets/images/placeholder.jpg'; // placeholder for other hamstring exercises
+                            }
+                        }
+                        return `
+                        <div class="exercise-item" style="position: relative;">
                             <div class="exercise-info">
                                 <h5>${exercise.name}</h5>
                                 <p>${exercise.sets} sets × ${exercise.reps} reps</p>
@@ -238,8 +268,22 @@ function showExerciseDetails(category) {
                                     </button>
                                 </div>
                             </div>
+                            <div class="exercise-image" style="
+                                content: '';
+                                width: 50%;
+                                height: 100%;
+                                background-image: url('${imageUrl}');
+                                background-size: contain;
+                                background-position: center;
+                                background-repeat: no-repeat;
+                                border-radius: 0.5rem;
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+                                bottom: 0;
+                            "></div>
                         </div>
-                    `).join('')}
+                    `}).join('')}
                 </div>
             </div>
         </div>

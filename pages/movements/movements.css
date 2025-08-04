@@ -3,15 +3,15 @@
 /* Header modifications for movements page */
 .header-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    padding: 0 1rem;
+    padding: 0 0 0 1rem;
 }
 
 .back-button {
     width: 2rem;
     height: 2rem;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -32,7 +32,7 @@
 .search-icon {
     width: 2rem;
     height: 2rem;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -131,7 +131,7 @@
 .body-diagram {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
     min-height: 300px;
 }
 
@@ -139,7 +139,7 @@
     position: relative;
     width: 200px;
     height: 500px;
-    background-color: #f3f4f6;
+    background-color: #ffffff;
     /* border-radius: 100px; */
     display: flex;
     flex-direction: column;
@@ -176,68 +176,58 @@
 
 /* Front view body parts */
 .front-view .shoulder-left {
-    top: 15%;
-    left: 15%;
-    width: 30px;
-    height: 30px;
+    top: 22%;
+    left: 20%;
+    width: 25px;
+    height: 25px;
 }
 
 .front-view .shoulder-right {
-    top: 15%;
-    right: 15%;
-    width: 30px;
-    height: 30px;
+    top: 22%;
+    right: 20%;
+    width: 25px;
+    height: 25px;
 }
 
 .front-view .arm-left {
-    top: 25%;
-    left: 5%;
+    top: 28%;
+    left: 15%;
     width: 25px;
     height: 50px;
+    transform: rotate(30deg);
 }
 
 .front-view .arm-right {
-    top: 25%;
-    right: 5%;
+    top: 28%;
+    right: 15%;
     width: 25px;
     height: 50px;
+    transform: rotate(-30deg);
 }
 
 .front-view .chest {
-    top: 30%;
-    left: 50%;
+    top: 25%;
+    left: 52%;
     transform: translateX(-50%);
     width: 50px;
     height: 40px;
 }
 
 .front-view .quadriceps-left {
-    bottom: 25%;
-    left: 20%;
-    width: 25px;
-    height: 40px;
+    bottom: 40%;
+    left: 32%;
+    width: 30px;
+    height: 50px;
 }
 
 .front-view .quadriceps-right {
-    bottom: 25%;
-    right: 20%;
-    width: 25px;
-    height: 40px;
+    bottom: 40%;
+    right: 28%;
+    width: 30px;
+    height: 50px;
 }
 
-.front-view .hamstrings-left {
-    bottom: 15%;
-    left: 20%;
-    width: 25px;
-    height: 30px;
-}
 
-.front-view .hamstrings-right {
-    bottom: 15%;
-    right: 20%;
-    width: 25px;
-    height: 30px;
-}
 
 /* Front view body parts (visible by default) */
 .front-view {
@@ -269,31 +259,33 @@ body:has(.back-view.visible) .front-view {
 
 /* Back view body parts */
 .back-view .shoulder-left {
-    top: 15%;
-    left: 15%;
-    width: 30px;
-    height: 30px;
+    top: 25%;
+    left: 20%;
+    width: 25px;
+    height: 25px;
 }
 
 .back-view .shoulder-right {
-    top: 15%;
-    right: 15%;
-    width: 30px;
-    height: 30px;
+    top: 25%;
+    right: 20%;
+    width: 25px;
+    height: 25px;
 }
 
 .back-view .arm-left {
-    top: 25%;
-    left: 5%;
+    top: 33%;
+    left: 18%;
     width: 25px;
     height: 50px;
+    transform: rotate(15deg);
 }
 
 .back-view .arm-right {
-    top: 25%;
-    right: 5%;
+    top: 33%;
+    right: 18%;
     width: 25px;
     height: 50px;
+    transform: rotate(-15deg);
 }
 
 .back-view .back {
@@ -304,32 +296,22 @@ body:has(.back-view.visible) .front-view {
     height: 40px;
 }
 
-.back-view .quadriceps-left {
-    bottom: 25%;
-    left: 20%;
-    width: 25px;
-    height: 40px;
-}
 
-.back-view .quadriceps-right {
-    bottom: 25%;
-    right: 20%;
-    width: 25px;
-    height: 40px;
-}
 
 .back-view .hamstrings-left {
-    bottom: 15%;
-    left: 20%;
+    bottom: 35%;
+    left: 33%;
     width: 25px;
-    height: 30px;
+    height: 60px;
+    transform: rotate(10deg);
 }
 
 .back-view .hamstrings-right {
-    bottom: 15%;
-    right: 20%;
+    bottom: 35%;
+    right: 33%;
     width: 25px;
-    height: 30px;
+    height: 60px;
+    transform: rotate(-10deg);
 }
 
 /* Movement Categories */
@@ -442,20 +424,7 @@ body:has(.back-view.visible) .front-view {
     min-height: 6rem;
 }
 
-.exercise-item::after {
-    content: '';
-    width: 50%;
-    height: 100%;
-    background-image: url('../../assets/images/shoulder.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-radius: 0.5rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-}
+
 
 .exercise-info {
     width: 50%;
